@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Pa_TV.Service;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -29,6 +30,9 @@ namespace Pa_TV
         /// </summary>
         public App()
         {
+            IRetrieveCoreData cdr = new CoreDataRetriever();
+            var x = cdr.GetCoreDataAsync().Result;
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

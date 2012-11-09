@@ -115,6 +115,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CoreDataMapper.cs" />
     <Compile Include="Service\IRetrieveCoreData.cs" />
     <Compile Include="Service\IRetrieveEvents.cs" />
   </ItemGroup>
