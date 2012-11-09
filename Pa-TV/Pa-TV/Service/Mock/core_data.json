@@ -1,0 +1,710 @@
+﻿{
+    "tvguideBatchResponse": {
+        "channelQueryResponse": {
+            "channels": [{
+                "id": 10,
+                "name": "NRK 1",
+                "logoBlackBgKey": 24483
+            }, {
+                "id": 11,
+                "name": "NRK 2",
+                "logoBlackBgKey": 24482
+            }, {
+                "id": 9,
+                "name": "TV2",
+                "logoBlackBgKey": 22735
+            }, {
+                "id": 155,
+                "name": "NRK Super",
+                "logoBlackBgKey": 25307
+            }, {
+                "id": 12,
+                "name": "TVNorge",
+                "logoBlackBgKey": 22726
+            }, {
+                "id": 299,
+                "name": "MAX",
+                "logoBlackBgKey": 25719
+            }, {
+                "id": 15,
+                "name": "TV3",
+                "logoBlackBgKey": 23751
+            }, {
+                "id": 21,
+                "name": "TV2 Zebra",
+                "logoBlackBgKey": 22795
+            }, {
+                "id": 19,
+                "name": "SVT 1",
+                "logoBlackBgKey": 23867
+            }, {
+                "id": 20,
+                "name": "SVT 2",
+                "logoBlackBgKey": 23866
+            }, {
+                "id": 17,
+                "name": "Viasat 4",
+                "logoBlackBgKey": 23000
+            }, {
+                "id": 18,
+                "name": "MTV",
+                "logoWhiteBgKey": 23824,
+                "logoBlackBgKey": 23823
+            }, {
+                "id": 25,
+                "name": "EuroSport",
+                "logoBlackBgKey": 22791
+            }, {
+                "id": 86,
+                "name": "TLC Norge",
+                "logoBlackBgKey": 22790
+            }, {
+                "id": 29,
+                "name": "Discovery",
+                "logoWhiteBgKey": 23840,
+                "logoBlackBgKey": 23841
+            }, {
+                "id": 23,
+                "name": "National Geographic",
+                "logoWhiteBgKey": 23929,
+                "logoBlackBgKey": 23928
+            }, {
+                "id": 156,
+                "name": "FEM",
+                "logoBlackBgKey": 22733
+            }, {
+                "id": 24,
+                "name": "Travel Channel",
+                "logoBlackBgKey": 22773
+            }, {
+                "id": 27,
+                "name": "Disney Channel",
+                "logoBlackBgKey": 25169
+            }, {
+                "id": 32,
+                "name": "Cartoon Network\/TCM",
+                "logoWhiteBgKey": 22860,
+                "logoBlackBgKey": 22768
+            }, {
+                "id": 26,
+                "name": "CNN Int.",
+                "logoBlackBgKey": 22717
+            }, {
+                "id": 28,
+                "name": "BBC World News",
+                "logoWhiteBgKey": 22869,
+                "logoBlackBgKey": 22788
+            }, {
+                "id": 62,
+                "name": "TV5",
+                "logoBlackBgKey": 22745
+            }, {
+                "id": 111,
+                "name": "TV2 Nyhetskanalen",
+                "logoBlackBgKey": 22716
+            }, {
+                "id": 74,
+                "name": "DR 1",
+                "logoBlackBgKey": 22759
+            }, {
+                "id": 30,
+                "name": "TV2 Film",
+                "logoBlackBgKey": 22743
+            }, {
+                "id": 50,
+                "name": "Star!",
+                "logoBlackBgKey": 23932
+            }, {
+                "id": 91,
+                "name": "VOX",
+                "logoBlackBgKey": 25555
+            }, {
+                "id": 22,
+                "name": "Viasat Crime\/Nature",
+                "logoBlackBgKey": 23950
+            }, {
+                "id": 31,
+                "name": "Canal 9",
+                "logoBlackBgKey": 25083
+            }, {
+                "id": 186,
+                "name": "TV2 Bliss",
+                "logoWhiteBgKey": 23924,
+                "logoBlackBgKey": 23925
+            }, {
+                "id": 58,
+                "name": "Nickelodeon",
+                "logoBlackBgKey": 22784
+            }, {
+                "id": 7,
+                "name": "Cartoon Network",
+                "logoBlackBgKey": 22765
+            }, {
+                "id": 37,
+                "name": "Disney Junior",
+                "logoWhiteBgKey": 24076,
+                "logoBlackBgKey": 24077
+            }, {
+                "id": 52,
+                "name": "Dansk TV2",
+                "logoBlackBgKey": 22794
+            }, {
+                "id": 46,
+                "name": "TV4",
+                "logoBlackBgKey": 22752
+            }, {
+                "id": 94,
+                "name": "Disney XD",
+                "logoBlackBgKey": 22769
+            }, {
+                "id": 72,
+                "name": "Animal Planet",
+                "logoBlackBgKey": 41120
+            }, {
+                "id": 85,
+                "name": "Discovery World",
+                "logoWhiteBgKey": 22859,
+                "logoBlackBgKey": 22774
+            }, {
+                "id": 84,
+                "name": "Discovery Science",
+                "logoBlackBgKey": 27068
+            }, {
+                "id": 49,
+                "name": "Viasat Explorer",
+                "logoWhiteBgKey": 23771,
+                "logoBlackBgKey": 23795
+            }, {
+                "id": 87,
+                "name": "National Geographic Wild",
+                "logoWhiteBgKey": 22872,
+                "logoBlackBgKey": 22728
+            }, {
+                "id": 151,
+                "name": "Viasat History",
+                "logoWhiteBgKey": 23770,
+                "logoBlackBgKey": 23794
+            }, {
+                "id": 116,
+                "name": "Silver",
+                "logoBlackBgKey": 22777
+            }, {
+                "id": 40,
+                "name": "Showtime",
+                "logoBlackBgKey": 22757
+            }, {
+                "id": 66,
+                "name": "TCM",
+                "logoWhiteBgKey": 23796,
+                "logoBlackBgKey": 23875
+            }, {
+                "id": 154,
+                "name": "Star! \/ Showtime",
+                "logoBlackBgKey": 23931
+            }, {
+                "id": 153,
+                "name": "France 24 English",
+                "logoBlackBgKey": 23842
+            }, {
+                "id": 152,
+                "name": "France 24 French",
+                "logoBlackBgKey": 23842
+            }, {
+                "id": 73,
+                "name": "EuroNews",
+                "logoBlackBgKey": 23869
+            }, {
+                "id": 76,
+                "name": "Sky News",
+                "logoBlackBgKey": 22731
+            }, {
+                "id": 51,
+                "name": "Bloomberg",
+                "logoWhiteBgKey": 23862,
+                "logoBlackBgKey": 23861
+            }, {
+                "id": 67,
+                "name": "CNBC",
+                "logoWhiteBgKey": 22871,
+                "logoBlackBgKey": 22754
+            }, {
+                "id": 118,
+                "name": "Al Jazeera English",
+                "logoBlackBgKey": 22714
+            }, {
+                "id": 48,
+                "name": "Motors TV",
+                "logoBlackBgKey": 22998
+            }, {
+                "id": 71,
+                "name": "Extreme Sport",
+                "logoWhiteBgKey": 22868,
+                "logoBlackBgKey": 22734
+            }, {
+                "id": 93,
+                "name": "Eurosport 2",
+                "logoBlackBgKey": 22762
+            }, {
+                "id": 3118,
+                "name": "TV2 Barclays Premier League 1",
+                "logoBlackBgKey": 23789
+            }, {
+                "id": 3119,
+                "name": "TV2 Barclays Premier League 2",
+                "logoBlackBgKey": 23788
+            }, {
+                "id": 3120,
+                "name": "TV2 Barclays Premier League 3",
+                "logoBlackBgKey": 23787
+            }, {
+                "id": 53,
+                "name": "TV2 SPORT",
+                "logoBlackBgKey": 28925
+            }, {
+                "id": 54,
+                "name": "TV2 SPORT2",
+                "logoBlackBgKey": 35724
+            }, {
+                "id": 55,
+                "name": "TV2 SPORT3",
+                "logoBlackBgKey": 35723
+            }, {
+                "id": 57,
+                "name": "TV2 SPORT4",
+                "logoBlackBgKey": 35722
+            }, {
+                "id": 95,
+                "name": "TV2 SPORT5",
+                "logoBlackBgKey": 35721
+            }, {
+                "id": 115,
+                "name": "ESPN Classic Sports",
+                "logoWhiteBgKey": 23813,
+                "logoBlackBgKey": 23814
+            }, {
+                "id": 157,
+                "name": "Rikstoto Direkte",
+                "logoBlackBgKey": 22789
+            }, {
+                "id": 82,
+                "name": "VH1",
+                "logoBlackBgKey": 22997
+            }, {
+                "id": 144,
+                "name": "VH1 Classic",
+                "logoWhiteBgKey": 23825,
+                "logoBlackBgKey": 23826
+            }, {
+                "id": 141,
+                "name": "MTV Rocks",
+                "logoWhiteBgKey": 24029,
+                "logoBlackBgKey": 23834
+            }, {
+                "id": 143,
+                "name": "MTV Hits",
+                "logoWhiteBgKey": 24027,
+                "logoBlackBgKey": 23832
+            }, {
+                "id": 142,
+                "name": "MTV Dance",
+                "logoWhiteBgKey": 24026,
+                "logoBlackBgKey": 23831
+            }, {
+                "id": 136,
+                "name": "MTV Music",
+                "logoWhiteBgKey": 24028,
+                "logoBlackBgKey": 23833
+            }, {
+                "id": 77,
+                "name": "Mezzo",
+                "logoBlackBgKey": 23011
+            }, {
+                "id": 35,
+                "name": "BBC Entertainment",
+                "logoWhiteBgKey": 22867,
+                "logoBlackBgKey": 22718
+            }, {
+                "id": 92,
+                "name": "BBC Lifestyle",
+                "logoBlackBgKey": 23815
+            }, {
+                "id": 140,
+                "name": "Visjon Norge",
+                "logoBlackBgKey": 23822
+            }, {
+                "id": 104,
+                "name": "Zone Reality",
+                "logoBlackBgKey": 23818
+            }, {
+                "id": 70,
+                "name": "Fine Living Network",
+                "logoWhiteBgKey": 25696,
+                "logoBlackBgKey": 25734
+            }, {
+                "id": 69,
+                "name": "God TV",
+                "logoBlackBgKey": 22701
+            }, {
+                "id": 1096,
+                "name": "C More LIVE",
+                "logoBlackBgKey": 28783
+            }, {
+                "id": 65,
+                "name": "C More Hockey",
+                "logoBlackBgKey": 28777
+            }, {
+                "id": 130,
+                "name": "C More Hits",
+                "logoBlackBgKey": 28776
+            }, {
+                "id": 43,
+                "name": "C More Emotion",
+                "logoBlackBgKey": 28770
+            }, {
+                "id": 44,
+                "name": "C More First",
+                "logoBlackBgKey": 28773
+            }, {
+                "id": 88,
+                "name": "C More Series",
+                "logoBlackBgKey": 28785
+            }, {
+                "id": 64,
+                "name": "C More Action",
+                "logoBlackBgKey": 28769
+            }, {
+                "id": 34,
+                "name": "C More Fotball",
+                "logoBlackBgKey": 28774
+            }, {
+                "id": 68,
+                "name": "C More Tennis",
+                "logoBlackBgKey": 28786
+            }, {
+                "id": 131,
+                "name": "C More Extreme",
+                "logoBlackBgKey": 28771
+            }, {
+                "id": 41,
+                "name": "VIASAT FILM",
+                "logoBlackBgKey": 25687
+            }, {
+                "id": 80,
+                "name": "VIASAT FILM NORDIC",
+                "logoBlackBgKey": 25685
+            }, {
+                "id": 79,
+                "name": "VIASAT FILM FAMILY",
+                "logoBlackBgKey": 25689
+            }, {
+                "id": 42,
+                "name": "VIASAT FILM ACTION",
+                "logoBlackBgKey": 25695
+            }, {
+                "id": 81,
+                "name": "VIASAT FILM CLASSIC",
+                "logoBlackBgKey": 25693
+            }, {
+                "id": 78,
+                "name": "VIASAT FILM DRAMA",
+                "logoBlackBgKey": 25692
+            }, {
+                "id": 56,
+                "name": "Playboy TV",
+                "logoBlackBgKey": 22767
+            }, {
+                "id": 13,
+                "name": "Blue Hustler",
+                "logoBlackBgKey": 22707
+            }, {
+                "id": 36,
+                "name": "Adult Channel",
+                "logoBlackBgKey": 23870
+            }, {
+                "id": 150,
+                "name": "Viasat Golf",
+                "logoWhiteBgKey": 23775,
+                "logoBlackBgKey": 23803
+            }, {
+                "id": 161,
+                "name": "Viasat Motor",
+                "logoWhiteBgKey": 23777,
+                "logoBlackBgKey": 23805
+            }, {
+                "id": 16,
+                "name": "Viasat Fotboll",
+                "logoWhiteBgKey": 23774,
+                "logoBlackBgKey": 23802
+            }, {
+                "id": 300,
+                "name": "Viasat Hockey",
+                "logoWhiteBgKey": 23773,
+                "logoBlackBgKey": 23804
+            }, {
+                "id": 96,
+                "name": "Prime TV",
+                "logoBlackBgKey": 23874
+            }, {
+                "id": 90,
+                "name": "Sony Entertainment TV Asia",
+                "logoBlackBgKey": 23873
+            }, {
+                "id": 107,
+                "name": "RTL",
+                "logoBlackBgKey": 23820
+            }, {
+                "id": 3,
+                "name": "Das Erste",
+                "logoWhiteBgKey": 24235,
+                "logoBlackBgKey": 24236
+            }, {
+                "id": 63,
+                "name": "3SAT",
+                "logoBlackBgKey": 22772
+            }, {
+                "id": 1,
+                "name": "Rai Uno",
+                "logoBlackBgKey": 23865
+            }, {
+                "id": 105,
+                "name": "TV Espana",
+                "logoBlackBgKey": 22737
+            }, {
+                "id": 83,
+                "name": "TV Finland",
+                "logoBlackBgKey": 23828
+            }, {
+                "id": 61,
+                "name": "TRT Int",
+                "logoBlackBgKey": 23830
+            }, {
+                "id": 108,
+                "name": "Zee TV",
+                "logoBlackBgKey": 25458
+            }, {
+                "id": 60,
+                "name": "TV Polonia",
+                "logoBlackBgKey": 23827
+            }, {
+                "id": 2,
+                "name": "Fashion TV",
+                "logoWhiteBgKey": 23836,
+                "logoBlackBgKey": 23835
+            }, {
+                "id": 5,
+                "name": "GET Infokanal",
+                "logoBlackBgKey": 22709
+            }, {
+                "id": 14,
+                "name": "NRK1 Tegnspråk",
+                "logoWhiteBgKey": 22865,
+                "logoBlackBgKey": 22749
+            }, {
+                "id": 187,
+                "name": "TVNorge HD",
+                "logoBlackBgKey": 22760
+            }, {
+                "id": 3117,
+                "name": "TV2 HD",
+                "logoBlackBgKey": 22751
+            }, {
+                "id": 3116,
+                "name": "SVT HD",
+                "logoBlackBgKey": 23868
+            }, {
+                "id": 3114,
+                "name": "Eurosport HD",
+                "logoBlackBgKey": 22761
+            }, {
+                "id": 3105,
+                "name": "C More FIRST HD",
+                "logoBlackBgKey": 28772
+            }, {
+                "id": 3110,
+                "name": "C More Fotball HD",
+                "logoBlackBgKey": 28768
+            }, {
+                "id": 3111,
+                "name": "Discovery HD",
+                "logoWhiteBgKey": 23871,
+                "logoBlackBgKey": 23872
+            }, {
+                "id": 3112,
+                "name": "Viasat Film HD",
+                "logoBlackBgKey": 25686
+            }, {
+                "id": 3113,
+                "name": "Viasat Sport HD",
+                "logoWhiteBgKey": 23778,
+                "logoBlackBgKey": 23807
+            }, {
+                "id": 181,
+                "name": "MTV LIVE HD",
+                "logoBlackBgKey": 22996
+            }, {
+                "id": 179,
+                "name": "BBC HD",
+                "logoWhiteBgKey": 22864,
+                "logoBlackBgKey": 22699
+            }, {
+                "id": 3107,
+                "name": "Silver HD",
+                "logoBlackBgKey": 22724
+            }, {
+                "id": 189,
+                "name": "NRK3 HD",
+                "logoBlackBgKey": 27265
+            }, {
+                "id": 188,
+                "name": "NRK2 HD",
+                "logoBlackBgKey": 27266
+            }, {
+                "id": 182,
+                "name": "NRK1 HD",
+                "logoBlackBgKey": 27267
+            }, {
+                "id": 195,
+                "name": "C More SF-Kanalen",
+                "logoBlackBgKey": 35672
+            }, {
+                "id": 117,
+                "name": "ESPN America",
+                "logoBlackBgKey": 24672
+            }, {
+                "id": 160,
+                "name": "Viasat Sport",
+                "logoWhiteBgKey": 23776,
+                "logoBlackBgKey": 23806
+            }, {
+                "id": 98,
+                "name": "TV Chile",
+                "logoBlackBgKey": 25306
+            }, {
+                "id": 59,
+                "name": "Al Jazeera Arabic",
+                "logoBlackBgKey": 23012
+            }]
+        },
+        "eventGenreQueryResponse": {
+            "eventGenres": [{
+                "id": 0,
+                "name": "Annet"
+            }, {
+                "id": 1,
+                "name": "Film"
+            }, {
+                "id": 2,
+                "name": "Nyheter"
+            }, {
+                "id": 3,
+                "name": "Show"
+            }, {
+                "id": 4,
+                "name": "Sport"
+            }, {
+                "id": 5,
+                "name": "Barn & Ungdom"
+            }, {
+                "id": 6,
+                "name": "Musikk & Dans"
+            }, {
+                "id": 7,
+                "name": "Kunst & kultur"
+            }, {
+                "id": 8,
+                "name": "Samfunn & Politikk"
+            }, {
+                "id": 9,
+                "name": "Vitenskap & Natur"
+            }, {
+                "id": 10,
+                "name": "Fritid"
+            }, {
+                "id": 14,
+                "name": "Serier"
+            }, {
+                "id": 15,
+                "name": "For voksne"
+            }]
+        },
+        "channelGroupQueryResponse": {
+            "groups": [{
+                "id": 7498,
+                "name": "Norsk",
+                "channels": [10, 11, 9, 155, 12, 299, 15, 21, 17, 156, 14]
+            }, {
+                "id": 7494,
+                "name": "Film",
+                "channels": [32, 30, 116, 40, 66, 154, 130, 43, 44, 64, 41, 80, 79, 42, 81, 78, 3105, 3112, 3107]
+            }, {
+                "id": 7495,
+                "name": "HD",
+                "channels": [3118, 3119, 3120, 187, 3117, 3116, 3114, 3105, 3110, 3111, 3112, 3113, 181, 179, 3107, 189, 188, 182]
+            }, {
+                "id": 7502,
+                "name": "Sport",
+                "channels": [25, 48, 71, 93, 3118, 3119, 3120, 53, 54, 55, 57, 95, 115, 157, 1096, 65, 34, 68, 131, 150, 161, 16, 300, 3114, 3110, 3113, 117]
+            }, {
+                "id": 7504,
+                "name": "Underholdning og livsstil",
+                "channels": [50, 40, 154, 35, 92, 104, 70, 2]
+            }, {
+                "id": 7493,
+                "name": "Familie",
+                "channels": [154, 94, 58, 7, 37, 46, 72, 85, 84, 49, 87, 151, 116, 40, 66, 153, 76, 51, 67, 118, 48, 71, 93, 82, 35, 92, 140, 104, 70, 69]
+            }, {
+                "id": 7499,
+                "name": "Nyheter",
+                "channels": [26, 28, 111, 153, 73, 76, 51, 67, 118, 59]
+            }, {
+                "id": 12496,
+                "name": "Allmenn",
+                "channels": [10, 11, 9, 155, 12, 15, 21, 17, 156, 60]
+            }, {
+                "id": 7491,
+                "name": "Barn",
+                "channels": [155, 27, 32, 94, 58, 7, 37]
+            }, {
+                "id": 7496,
+                "name": "Mest populære",
+                "channels": [10, 11, 9, 155, 12, 299, 15, 21, 19, 20, 17, 18, 25, 29]
+            }, {
+                "id": 7503,
+                "name": "Start",
+                "channels": [10, 11, 9, 155, 12, 299, 15, 31, 19, 20, 17, 18, 25, 86, 29, 23, 22, 24, 27, 32, 26, 28, 62, 111, 74, 30, 154, 91, 156, 21, 94, 73, 14, 187, 3116, 182, 188, 189, 3117, 3114, 5]
+            }, {
+                "id": 3183,
+                "name": "Kultur maniac",
+                "channels": [10, 11, 9, 155, 18]
+            }, {
+                "id": 7490,
+                "name": "Hjemland",
+                "channels": [19, 20, 62, 74, 52, 46, 118, 59, 96, 90, 107, 63, 1, 105, 83, 61, 108, 3116]
+            }, {
+                "id": 12497,
+                "name": "Voksen",
+                "channels": [56, 13, 36]
+            }, {
+                "id": 7627,
+                "name": "Alle (samme rekkefølge som på dekoder)",
+                "channels": [10, 11, 9, 155, 12, 299, 15, 21, 19, 20, 17, 18, 25, 86, 29, 23, 156, 24, 27, 32, 26, 28, 62, 111, 74, 30, 50, 91, 22, 31, 186, 58, 7, 37, 52, 46, 94, 72, 85, 84, 49, 87, 151, 116, 40, 66, 154, 153, 152, 73, 76, 51, 67, 118, 48, 71, 93, 3118, 3119, 3120, 53, 54, 55, 57, 95, 115, 157, 82, 144, 141, 143, 142, 136, 77, 35, 92, 140, 104, 70, 69, 1096, 65, 130, 43, 44, 88, 64, 34, 68, 131, 41, 80, 79, 42, 81, 78, 56, 13, 36, 150, 161, 16, 300, 96, 90, 107, 3, 63, 1, 105, 83, 61, 108, 60, 2, 5, 14, 187, 3117, 3116, 3114, 3105, 3110, 3111, 3112, 3113, 181, 179, 3107, 189, 188, 182]
+            }, {
+                "id": 3163,
+                "name": "Fotball HD maniac",
+                "channels": [3118, 3119, 3120]
+            }, {
+                "id": 7492,
+                "name": "Dokumentar og natur",
+                "channels": [86, 29, 23, 22, 24, 72, 85, 84, 49, 87, 151, 3111]
+            }, {
+                "id": 7497,
+                "name": "Musikk og ungdom",
+                "channels": [18, 91, 82, 144, 141, 143, 142, 136, 77, 181]
+            }, {
+                "id": 7500,
+                "name": "Skandinaviske",
+                "channels": [10, 11, 9, 155, 12, 299, 15, 21, 19, 20, 17, 111, 74, 156, 46, 14, 187, 3117, 3116, 189, 188, 182]
+            }]
+        }
+    }
+}

@@ -1,0 +1,17 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   Pa-TV/Pa-TV/Models/CoreData.cs
+#	modified:   Pa-TV/Pa-TV/Models/Event.cs
+#	new file:   Pa-TV/Pa-TV/Models/Genre.cs
+#	modified:   Pa-TV/Pa-TV/Pa-TV.csproj
+#	new file:   Pa-TV/Pa-TV/Service/IRetrieveCoreData.cs
+#	new file:   Pa-TV/Pa-TV/Service/IRetrieveEvents.cs
+#	new file:   Pa-TV/Pa-TV/Service/Mock/core_data.json
+#	new file:   Pa-TV/Pa-TV/Service/Mock/events.json
+#
+

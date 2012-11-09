@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Pa_TV.Service;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -23,15 +24,24 @@ namespace Pa_TV
     /// </summary>
     sealed partial class App : Application
     {
+        public const string DateFormat = "yyyy-MM-ddTHH:mm";
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
+            //IRetrieveCoreData cdr = new CoreDataRetriever();
+            //var x = cdr.GetCoreDataAsync().Result;
+
+            IRetrieveEvents er = new EventRetriever();
+            var x = er.GetEventsTodayAsync().Result;
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
