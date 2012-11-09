@@ -26,24 +26,24 @@ namespace Pa_TV.Service
         private static Channel MapChannel(channelWithEvents c)
         {
             return new Channel
-                       {
-                           Id = c.id,
-                           Name = c.name,
-                           Events = (c.events != null) ? c.events.Select(MapEvent).ToList() : Enumerable.Empty<Event>(),
-                           LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
-                       };
+                   {
+                       Id = c.id,
+                       Name = c.name,
+                       Events = (c.events != null) ? c.events.Select(MapEvent).ToList() : Enumerable.Empty<Event>(),
+                       LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
+                   };
         }
 
         private static Event MapEvent(eventProxy e)
         {
             return new Event
-                       {
-                           Id = e.id,
-                           Title = e.title,
-                           Description = e.description,
-                           Start = Format.ParseDate(e.start),
-                           Duration = e.duration,
-                       };
+                   {
+                       Id = e.id,
+                       Title = e.title,
+                       Description = e.description,
+                       Start = Format.ParseDate(e.start),
+                       Duration = e.duration,
+                   };
         }
 
         #region Proxy types

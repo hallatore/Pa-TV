@@ -127,7 +127,9 @@
       <DependentUpon>Event.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\CoreDataMapper.cs" />
+    <Compile Include="Service\CoreDataRetriever.cs" />
     <Compile Include="Service\EventDataMapper.cs" />
+    <Compile Include="Service\EventRetriever.cs" />
     <Compile Include="Service\IRetrieveCoreData.cs" />
     <Compile Include="Service\IRetrieveEvents.cs" />
     <Compile Include="Util\Format.cs" />

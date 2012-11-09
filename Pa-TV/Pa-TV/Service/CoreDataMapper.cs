@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 using Pa_TV.Models;
 using Pa_TV.Util;
@@ -12,21 +9,24 @@ namespace Pa_TV.Service
 {
     public static class CoreDataMapper
     {
-        public static async Task<CoreData> MapCoreData(Stream jsonStream)
+        public static CoreData MapCoreData(Stream jsonStream)
         {
-            var serializer = new DataContractJsonSerializer(typeof(root));
-            var proxyObject = (root)serializer.ReadObject(jsonStream);
-            CoreData cd = new CoreData();
-            cd.Channels = proxyObject.tvguideBatchResponse.channelQueryResponse.channels.Select(c =>
-            {
-                return new Channel
-                {
-                    Id = c.id,
-                    Name = c.name,
-                    LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
-                };
-            });
-            return cd;
+            var serializer = new DataContractJsonSerializer(typeof (coreDataRoot));
+            var proxyObject = (coreDataRoot) serializer.ReadObject(jsonStream);
+
+            var channels = proxyObject.tvguideBatchResponse.channelQueryResponse.channels;
+
+            return new CoreData {Channels = channels.Select(MapChannel)};
+        }
+
+        private static Channel MapChannel(channel c)
+        {
+            return new Channel
+                   {
+                       Id = c.id,
+                       Name = c.name,
+                       LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
+                   };
         }
     }
 
@@ -35,7 +35,7 @@ namespace Pa_TV.Service
     // ReSharper disable InconsistentNaming
     // ReSharper disable ClassNeverInstantiated.Global
 
-    public class root
+    public class coreDataRoot
     {
         public tvguideBatchResponse tvguideBatchResponse { get; set; }
     }
