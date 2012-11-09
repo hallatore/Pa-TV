@@ -1,0 +1,10 @@
+_ReSharper*
+Bin
+obj
+*.csproj.user
+*.ReSharper.user
+*.resharper
+*.suo
+PerformanceLogs
+*.sap
+Thumbs.db
