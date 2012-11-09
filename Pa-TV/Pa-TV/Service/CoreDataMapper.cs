@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Pa_TV.Models;
+using Pa_TV.Util;
 
 namespace Pa_TV.Service
 {
@@ -22,7 +23,7 @@ namespace Pa_TV.Service
                 {
                     Id = c.id,
                     Name = c.name,
-                    LogoUrl = new Uri("http://m.get.no/rest/open/image/cms/resize?width=130&height=90&key=" + c.logoBlackBgKey)
+                    LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
                 };
             });
             return cd;
