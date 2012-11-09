@@ -2,7 +2,8 @@
     x:Class="Pa_TV.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Pa_TV">
+    xmlns:local="using:Pa_TV"
+    RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>

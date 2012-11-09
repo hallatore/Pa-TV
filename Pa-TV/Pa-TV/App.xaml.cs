@@ -35,8 +35,8 @@ namespace Pa_TV
             //IRetrieveCoreData cdr = new CoreDataRetriever();
             //var x = cdr.GetCoreDataAsync().Result;
 
-            IRetrieveEvents er = new EventRetriever();
-            var x = er.GetEventsTodayAsync().Result;
+            //IRetrieveEvents er = new EventRetriever();
+            //var x = er.GetEventsTodayAsync().Result;
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;

@@ -15,10 +15,10 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#FF333333">
+                        <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#3C3C3C" Background="#262626">
                             <Grid Margin="12,0">
-                                <TextBlock VerticalAlignment="Top" Text="{Binding Title}" Style="{StaticResource GroupHeaderTextStyle}"/>
-                                <TextBlock VerticalAlignment="Bottom" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,12" Style="{StaticResource SubtitleTextStyle}"/>
+                                <TextBlock VerticalAlignment="Top" TextWrapping="NoWrap" Foreground="White" Text="{Binding Title}" Style="{StaticResource ItemTextStyle}"/>
+                                <TextBlock VerticalAlignment="Bottom" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>
                             </Grid>
                         <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ApplicationViewStates">
@@ -32,12 +32,15 @@
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#05FFFFFF"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
                                         <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
+                                            </ObjectAnimationUsingKeyFrames>
                                             <PointerDownThemeAnimation TargetName="ContentContainer" />
                                         </Storyboard>
                                     </VisualState>
@@ -76,33 +79,32 @@
             </Grid.RowDefinitions>
             
             <Grid>
-                <ScrollViewer x:Name="HeaderScroller" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <Grid Margin="292,0,0,0">
+                <ScrollViewer ZoomMode="Disabled" x:Name="HeaderScroller" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <Grid Margin="222,0,0,0">
                         <Grid x:Name="TimeHeaders"/>
                     </Grid>
                 </ScrollViewer>
-                <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left">
-                    <TextBlock Style="{StaticResource GroupHeaderTextStyle}" Margin="120,0,12,0" Width="150">i dag</TextBlock>
-                </Grid>
+                <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" Width="222"/>
             </Grid>
 
             <Grid Grid.Row="1">
-                <ScrollViewer Padding="0,0,0,100" ViewChanged="Scroller_ViewChanged_1" x:Name="Scroller" HorizontalScrollMode="Enabled" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" ZoomMode="Disabled" HorizontalScrollBarVisibility="Visible">
-                    <Grid Margin="320,0,0,0">
-                        <StackPanel x:Name="EventsStackPanel" HorizontalAlignment="Left" Width="2000" Height="2000"/>
+                <ScrollViewer 
+                    Padding="0,0,0,20" 
+                    ViewChanged="Scroller_ViewChanged_1" 
+                    x:Name="Scroller" 
+                    HorizontalScrollMode="Enabled" 
+                    VerticalScrollBarVisibility="Hidden" 
+                    VerticalScrollMode="Enabled" 
+                    ZoomMode="Disabled" 
+                    HorizontalScrollBarVisibility="Visible">
+                    <Grid x:Name="ScrollerContainer" Margin="250,0,0,0" Background="#111111">
+                        <StackPanel x:Name="EventsStackPanel" HorizontalAlignment="Left"/>
                     </Grid>
                 </ScrollViewer>
 
-                <ScrollViewer Margin="0,0,0,100" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" IsHitTestVisible="False" HorizontalAlignment="Left" x:Name="ChannelsScroller"  HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <Grid Height="2000" Background="Blue" Width="200" Margin="120,0,0,0">
-                        <Button VerticalAlignment="Top" Height="400">Tester</Button>
-                    </Grid>
+                <ScrollViewer ZoomMode="Disabled" ViewChanged="ChannelsScroller_ViewChanged_1" Margin="0,0,0,20" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" x:Name="ChannelsScroller"  HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Hidden">
+                    <StackPanel x:Name="ChannelsStackPanel" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="130" Margin="120,0,0,0"/>
                 </ScrollViewer>
-
-                <StackPanel Margin="120,12,0,50" Height="50" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <Button Content="Opp" Margin="0,0,12,0" Click="Button_Click_1"/>
-                    <Button Content="Ned" Click="Button_Click_2"/>
-                </StackPanel>
             </Grid>
         </Grid>
         
