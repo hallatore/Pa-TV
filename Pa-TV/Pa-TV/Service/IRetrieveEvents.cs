@@ -10,7 +10,7 @@ namespace Pa_TV.Service
 {
     public interface IRetrieveEvents
     {
-        Task<IEnumerable<Event>> GetEventsTodayAsync();
+        Task<IEnumerable<Channel>> GetEventsTodayAsync();
     }
 
     public class EventRetriever : IRetrieveEvents
@@ -19,17 +19,19 @@ namespace Pa_TV.Service
         private static readonly HttpClient Client = new HttpClient();
         private const int MinutesInDay = 1440;
 
-        public async Task<IEnumerable<Event>> GetEventsTodayAsync()
+        public async Task<IEnumerable<Channel>> GetEventsTodayAsync()
         {
             var startOfTvDay = DateTime.Today.AddHours(5); // Today @ 5 'o clock in the morning
 
-            var urlBuilder = new UriBuilder(EndpointUri);
-            urlBuilder.Query = string.Format("start={0}&duration={1}",
-                                             startOfTvDay.ToString("yyyy-MM-ddThh:mm"), MinutesInDay);
+            var urlBuilder = new UriBuilder(EndpointUri)
+                             {
+                                 Query = string.Format("start={0}&duration={1}",
+                                                       startOfTvDay.ToString(App.DateFormat), MinutesInDay)
+                             };
 
             var jsonStream = await Client.GetStreamAsync(urlBuilder.Uri);
 
-            return await EventDataMapper.MapEvents(jsonStream);
+            return EventDataMapper.MapEvents(jsonStream);
         }
     }
 }

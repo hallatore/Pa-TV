@@ -24,6 +24,8 @@ namespace Pa_TV
     /// </summary>
     sealed partial class App : Application
     {
+        public const string DateFormat = "yyyy-MM-ddTHH:mm";
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,6 +41,7 @@ namespace Pa_TV
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
