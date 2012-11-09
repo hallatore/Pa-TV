@@ -8,8 +8,8 @@ namespace Pa_TV.Models
 {
     public class Channel
     {
-        public int Id { get; set; }
+        public String Id { get; set; }
         public string Name { get; set; }
-        public string LogoUrl { get; set; }
+        public Uri LogoUrl { get; set; }
     }
 }

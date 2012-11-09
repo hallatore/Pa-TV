@@ -15,8 +15,17 @@ namespace Pa_TV.Service
         {
             var serializer = new DataContractJsonSerializer(typeof(root));
             var proxyObject = (root)serializer.ReadObject(jsonStream);
-
-            return new CoreData();
+            CoreData cd = new CoreData();
+            cd.Channels = proxyObject.tvguideBatchResponse.channelQueryResponse.channels.Select(c =>
+            {
+                return new Channel
+                {
+                    Id = c.id,
+                    Name = c.name,
+                    LogoUrl = new Uri("http://m.get.no/rest/open/image/cms/resize?width=130&height=90&key=" + c.logoBlackBgKey)
+                };
+            });
+            return cd;
         }
     }
 
