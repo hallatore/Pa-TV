@@ -30,8 +30,11 @@ namespace Pa_TV
         /// </summary>
         public App()
         {
-            IRetrieveCoreData cdr = new CoreDataRetriever();
-            var x = cdr.GetCoreDataAsync().Result;
+            //IRetrieveCoreData cdr = new CoreDataRetriever();
+            //var x = cdr.GetCoreDataAsync().Result;
+
+            IRetrieveEvents er = new EventRetriever();
+            var x = er.GetEventsTodayAsync().Result;
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
