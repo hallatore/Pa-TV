@@ -110,14 +110,20 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\CoreData.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IRetrieveCoreData.cs" />
+    <Compile Include="Service\IRetrieveEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Pa-TV_TemporaryKey.pfx" />
+    <None Include="Service\Mock\events.json" />
+    <None Include="Service\Mock\core_data.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
