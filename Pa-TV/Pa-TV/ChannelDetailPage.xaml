@@ -52,7 +52,7 @@
     
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
+            <RowDefinition x:Name="TopRow" Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="TopBar">
@@ -68,7 +68,7 @@
         </Grid>
 
         <Grid Grid.Row="1" >
-            <ItemsControl Margin="116,40,0,0" ItemsSource="{Binding EventsForDate}">
+            <ItemsControl Margin="116,40,0,0" x:Name="ChannelItemsControl" ItemsSource="{Binding EventsForDate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -89,6 +89,11 @@
                                 ZoomMode="Disabled" 
                                 HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
                                 <ItemsControl ItemsSource="{Binding Events}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Margin="0,0,0,17"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Button Style="{StaticResource EventButtonStyle}" Click="Button_Click_1" HorizontalAlignment="Stretch" Height="55" Margin="0,0,0,-1"/>
@@ -102,6 +107,8 @@
             </ItemsControl>
         </Grid>
         
+        <ProgressRing Grid.Row="1" Height="60" Width="60" Margin="0,0,0,140" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="ProgressRingControl" IsActive="False"/>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="FullScreenLandscape"/>
@@ -120,6 +127,15 @@
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="channelLogo" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,40,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ChannelItemsControl" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="30,20,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TopRow" Storyboard.TargetProperty="Height">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
