@@ -355,7 +355,7 @@ namespace Pa_TV
             request.Data.Properties.Description = _activeEventItem.Description;
 
             request.Data.SetText(string.Format(
-                "Ta en titt på \"{0}\" ({1} - {2})",
+                "På TV! {0} ({1:HH:mm} - {2:HH:mm, dd.MM.yyyy})",
                 _activeEventItem.Title, _activeEventItem.Start, _activeEventItem.End));
 
             DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
