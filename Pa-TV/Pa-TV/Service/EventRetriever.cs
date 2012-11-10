@@ -30,4 +30,24 @@ namespace Pa_TV.Service
             return EventDataMapper.MapEvents(jsonStream);
         }
     }
+    
+    public class CachingEventRetriever : IRetrieveEvents
+    {
+        private static IEnumerable<Channel> cache = null;
+        protected EventRetriever NonCahcingImplementation { get; set; }
+
+        public CachingEventRetriever()
+        {
+            this.NonCahcingImplementation = new EventRetriever();
+        }
+
+        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<string> channels = null)
+        {
+            if (cache != null)
+                return cache;
+
+            cache = await NonCahcingImplementation.GetEventsTodayAsync(channels);
+            return cache;
+        }
+    }
 }

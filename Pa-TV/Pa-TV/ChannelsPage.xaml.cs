@@ -62,7 +62,7 @@ namespace Pa_TV
 
         private async Task LoadChannels()
         {
-            var er = new EventRetriever();
+            var er = new CachingEventRetriever();
             var result = await er.GetEventsTodayAsync();
             
             var channels = result.Select(c => new Channel
