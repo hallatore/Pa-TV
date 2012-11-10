@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Pa_TV.Models;
 using Pa_TV.Service;
 using Pa_TV.ViewModels;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Search;
 using Windows.Devices.Input;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -319,10 +322,36 @@ namespace Pa_TV
         async void ShowEventInfo_Click(object sender, RoutedEventArgs e)
         {
             var eventItem = (Event) ((FrameworkElement) sender).DataContext;
+
+            TypedEventHandler<DataTransferManager, DataRequestedEventArgs> onDataRequested = (manager, args) => OnDataRequested(manager, args, eventItem);
+            DataTransferManager.GetForCurrentView().DataRequested += onDataRequested;
+
             var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title);
             dialog.Commands.Add(new UICommand("Lukk"));
+            dialog.Commands.Add(new UICommand("Del", OnCLickShare));
+
             await dialog.ShowAsync();
+
+            DataTransferManager.GetForCurrentView().DataRequested -= onDataRequested;
         }
+
+        private void OnCLickShare(IUICommand command)
+        {
+            DataTransferManager.ShowShareUI();
+        }
+
+        void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args, Event item)
+        {
+            var request = args.Request;
+
+            request.Data.Properties.Title = item.Title;
+            request.Data.Properties.Description = item.Description;
+
+            request.Data.SetText(string.Format(
+                "Ta en titt på \"{0}\" ({1} - {2})", 
+                item.Title, item.Start, item.End));
+        }
+
 
         private Button GetEvent(Event eventItem, DateTime start)
         {
