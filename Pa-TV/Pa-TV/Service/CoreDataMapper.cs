@@ -15,8 +15,9 @@ namespace Pa_TV.Service
             var proxyObject = (coreDataRoot) serializer.ReadObject(jsonStream);
 
             var channels = proxyObject.tvguideBatchResponse.channelQueryResponse.channels;
+            var genres = proxyObject.tvguideBatchResponse.eventGenreQueryResponse.eventGenres;
 
-            return new CoreData {Channels = channels.Select(MapChannel)};
+            return new CoreData {Channels = channels.Select(MapChannel), Genres = genres.Select(MapGenre)};
         }
 
         private static Channel MapChannel(channel c)
@@ -27,6 +28,14 @@ namespace Pa_TV.Service
                        Name = c.name,
                        LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
                    };
+        }
+        private static Genre MapGenre(genre g)
+        {
+            return new Genre
+            {
+                Id = g.id,
+                Name = g.name,
+            };
         }
     }
 
@@ -40,14 +49,25 @@ namespace Pa_TV.Service
         public tvguideBatchResponse tvguideBatchResponse { get; set; }
     }
 
+    public class eventGenreQueryResponse
+    {
+        public genre[] eventGenres { get; set; }
+    }
     public class tvguideBatchResponse
     {
         public channelQueryResponse channelQueryResponse { get; set; }
+        public eventGenreQueryResponse eventGenreQueryResponse { get; set; }
     }
 
     public class channelQueryResponse
     {
         public channel[] channels { get; set; }
+    }
+
+    public class genre
+    {
+        public string id { get; set; }
+        public string name { get; set; }
     }
 
     public class channel
