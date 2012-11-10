@@ -75,7 +75,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Opacity="0" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="På TV" Style="{StaticResource PageHeaderTextStyle}"/>
+            
+            <Button Grid.Column="1" Click="Header_Click" Style="{StaticResource TransparentButtonStyle}" VerticalAlignment="Bottom">
+                <TextBlock x:Name="pageTitle" Text="På TV" Style="{StaticResource PageHeaderTextStyle}"/>
+            </Button>
 
             <Button Grid.Column="2" x:Name="DayDateButton" Style="{StaticResource TransparentButtonStyle}" Margin="0,15,0,0" Click="ShowHideDaySelection_Click">
                 <TextBlock x:Name="DayDateText" Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
@@ -121,7 +124,7 @@
                     <StackPanel x:Name="ChannelsStackPanel" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="120"/>
                 </ScrollViewer>
 
-                <Grid x:Name="SearchHintContainer" IsHitTestVisible="False" Margin="120,0,0,0" VerticalAlignment="Bottom" Height="17" Opacity="0.7"/>
+                <Grid x:Name="SearchHintContainer" IsHitTestVisible="False" Margin="130,0,10,0" VerticalAlignment="Bottom" Height="17" Opacity="0.7"/>
             </Grid>
         </Grid>
 

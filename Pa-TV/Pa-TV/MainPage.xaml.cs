@@ -253,10 +253,6 @@ namespace Pa_TV
             {
                 var leftTime = firstItem.Start - start;
                 var leftMargin = (leftTime.TotalMinutes / 30) * TimeWidth;
-
-                var widthTime = firstItem.End - firstItem.Start;
-                var width = (widthTime.TotalMinutes / 30) * TimeWidth;
-
                 Scroller.ScrollToHorizontalOffset(leftMargin - TimeWidth);
             }
 
@@ -434,6 +430,13 @@ namespace Pa_TV
             var date = (DateTime) ((FrameworkElement) sender).DataContext;
             viewModel.Start = date.AddHours(5);
             LoadChannels();
+        }
+
+        private void Header_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel == null) return;
+
+            ScrollToCurrentTime(viewModel.Start, viewModel.End);
         }
     }
 }
