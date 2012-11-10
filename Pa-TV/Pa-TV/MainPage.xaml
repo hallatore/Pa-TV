@@ -76,13 +76,13 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Opacity="0" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="På TV" Style="{StaticResource PageHeaderTextStyle}"/>
-            
-            <Button Grid.Column="2" Style="{StaticResource TransparentButtonStyle}" Margin="0,15,0,0" Click="ShowHideDaySelection_Click">
-                <TextBlock Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
+
+            <Button Grid.Column="2" x:Name="DayDateButton" Style="{StaticResource TransparentButtonStyle}" Margin="0,15,0,0" Click="ShowHideDaySelection_Click">
+                <TextBlock x:Name="DayDateText" Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
             </Button>
 
-            <Button HorizontalAlignment="Right" Click="ClearSearch_Click" Grid.Column="3" VerticalAlignment="Center" Style="{StaticResource TransparentButtonStyle}">
-                <TextBlock x:Name="SearchStatusText" Margin="10,10,30,10" Text="" Style="{StaticResource SubheaderTextStyle}"/>
+            <Button HorizontalAlignment="Right" Click="ClearSearch_Click" Margin="0,15,0,0" Grid.Column="3" VerticalAlignment="Center" Style="{StaticResource TransparentButtonStyle}">
+                <TextBlock x:Name="SearchStatusText" Margin="10,10,30,10" Text="" Style="{StaticResource PageSubheaderTextStyle}"/>
             </Button>
         </Grid>
 
@@ -161,6 +161,16 @@
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TopRow" Storyboard.TargetProperty="Height">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DayDateText" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ItemTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DayDateButton" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DaySelectorGrid" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="100,70,0,0"/>
                         </ObjectAnimationUsingKeyFrames>
 
 

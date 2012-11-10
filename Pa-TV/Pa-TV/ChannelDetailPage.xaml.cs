@@ -71,7 +71,9 @@ namespace Pa_TV
                 DataContext = viewModel;
             }
 
+            ProgressRingControl.IsActive = true;
             await viewModel.LoadData();
+            ProgressRingControl.IsActive = false;
         }
 
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
