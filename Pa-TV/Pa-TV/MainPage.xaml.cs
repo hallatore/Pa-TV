@@ -328,10 +328,15 @@ namespace Pa_TV
             DataTransferManager.GetForCurrentView().DataRequested += OnDataRequested;
             var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", _activeEventItem.Start, _activeEventItem.End, _activeEventItem.Description), _activeEventItem.Title);
             dialog.Commands.Add(new UICommand("Del", OnCLickShare));
-            dialog.Commands.Add(new UICommand("Lukk"));
+            dialog.Commands.Add(new UICommand("Lukk", command =>
+            {
+                DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
+
+            }));
+
+            dialog.DefaultCommandIndex = 1;
 
             await dialog.ShowAsync();
-
         }
 
         private void OnCLickShare(IUICommand command)
