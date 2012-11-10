@@ -97,7 +97,7 @@ namespace Pa_TV
             var current = start.AddMinutes(30);
 
             var er = new EventRetriever();
-            viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Start, viewModel.Channels);
+            viewModel.ChannelList = await er.GetEventsForDateAsync(viewModel.Start, viewModel.Channels);
 
             foreach (var channel in viewModel.ChannelList)
             {

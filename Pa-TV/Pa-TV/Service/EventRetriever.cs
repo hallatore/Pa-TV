@@ -13,12 +13,21 @@ namespace Pa_TV.Service
         private static readonly HttpClient Client = new HttpClient();
         private const int MinutesInDay = 1440;
 
-        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(DateTime start, IEnumerable<string> channels = null)
+        public async Task<IEnumerable<Channel>> GetEventsForDateAsync(DateTime start, IEnumerable<string> channels = null)
         {
             var channelUri = string.Empty;
 
-            if (channels != null && channels.Count() > 0)
-                channelUri = channels.Aggregate("&channels=", (current, channel) => current + (channel + ","));
+            var hackingList = new List<string>(channels);
+            var needsHack = false;
+            // HACK because the API does not return an JSON array when there is only one channel
+            if (hackingList.Count == 1)
+            {
+                hackingList.Add("5"); // Get Info channel (small overhead in data)
+                needsHack = true;
+            }
+
+            if (hackingList.Count > 1)
+                channelUri = hackingList.Aggregate("&channels=", (current, channel) => current + (channel + ","));
 
             var urlBuilder = new UriBuilder(EndpointUri)
             {
@@ -26,7 +35,12 @@ namespace Pa_TV.Service
             };
 
             var jsonStream = await Client.GetStreamAsync(urlBuilder.Uri);
-            return EventDataMapper.MapEvents(jsonStream);
+            var events = new List<Channel>(EventDataMapper.MapEvents(jsonStream));
+
+            if(needsHack)
+                events.Remove(events.Last()); // TODO: Possible bug source :) 
+
+            return events;
         }
     }
     
@@ -45,8 +59,14 @@ namespace Pa_TV.Service
             if (cache != null)
                 return cache;
 
-            cache = await NonCahcingImplementation.GetEventsTodayAsync(start, channels);
+            cache = await NonCahcingImplementation.GetEventsForDateAsync(start, channels);
             return cache;
+        }
+
+        public Task<IEnumerable<Channel>> GetEventsForDateAsync(DateTime dateTime, IEnumerable<string> channels)
+        {
+            // DOES NOT CACHE!
+            return NonCahcingImplementation.GetEventsForDateAsync(dateTime, channels);
         }
     }
 }

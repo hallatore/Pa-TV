@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Pa_TV.Extensions;
 using Pa_TV.Models;
 using Pa_TV.Service;
+using Pa_TV.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
