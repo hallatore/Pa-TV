@@ -64,9 +64,8 @@ namespace Pa_TV
         {
             var er = new CachingCoreDataRetrieve();
             var result = await er.GetCoreDataAsync();
-
-            var channels = result.Channels;
-           
+            
+            var channels = result.Channels.ToList();
 
             var selectedChannels = channels.Where(c => viewModel.Channels.Any(c2 => c2 == c.Id));
 

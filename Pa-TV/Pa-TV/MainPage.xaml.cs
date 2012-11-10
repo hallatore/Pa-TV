@@ -65,7 +65,7 @@ namespace Pa_TV
             var end = start.AddDays(1);
             var current = start.AddMinutes(30);
 
-            var er = new CachingEventRetriever();
+            var er = new EventRetriever();
             viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Channels);
 
             DrawTimeLines(current, end, TimeWidth);
