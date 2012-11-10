@@ -23,6 +23,7 @@ namespace Pa_TV
         private const int TimeWidth = 250;
         private const int RowHeight = 60;
         private MainPageViewModel viewModel;
+        private DispatcherTimer timer;
 
         public MainPage()
         {
@@ -30,6 +31,18 @@ namespace Pa_TV
 
             SearchPane.GetForCurrentView().ShowOnKeyboardInput = true;
             SearchPane.GetForCurrentView().QuerySubmitted += MainPageQuerySubmitted;
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMinutes(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        void Timer_Tick(object sender, object e)
+        {
+            if (viewModel == null) return;
+
+            DrawCurrentTimeLine(viewModel.Start, viewModel.End);
         }
 
         protected async override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -58,41 +71,56 @@ namespace Pa_TV
         {
             ProgressRingControl.IsActive = true;
             Scroller.Opacity = 0;
-            //ContentContainer.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
 
             var start = viewModel.Start;
-            var end = start.AddDays(1);
             var current = start.AddMinutes(30);
 
             var er = new CachingEventRetriever();
             viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Channels);
 
-            DrawTimeLines(current, end, TimeWidth);
+            foreach (var channel in viewModel.ChannelList)
+            {
+                var ci = channel.Events.Max(ev => ev.End);
+                if (ci > viewModel.End)
+                {
+                    viewModel.End = ci;
+                }
+            }
+
+            DrawTimeLines(current, viewModel.End, TimeWidth);
             DrawChannels(viewModel.ChannelList, start);
-            DrawCurrentTimeLine(start, end);
+            DrawCurrentTimeLine(start, viewModel.End);
             Scroller.Opacity = 1;
             UpdateLayout();
-            ScrollToCurrentTime(start, end);
+            TimeHeaders.Width = ScrollerContainer.ActualWidth;
+            ScrollToCurrentTime(start, viewModel.End);
 
             ProgressRingControl.IsActive = false;
         }
 
+        private Grid _currentTimeLine;
         private void DrawCurrentTimeLine(DateTime start, DateTime end)
         {
             if (DateTime.Now >= start && DateTime.Now <= end)
             {
                 var now = DateTime.Now - start;
                 var leftOffset = (now.TotalMinutes/30)*TimeWidth;
-                ScrollerContainer.Children.Add(new Grid
+
+                if (_currentTimeLine == null)
+                {
+                    _currentTimeLine = new Grid
                     {
                         Background = (SolidColorBrush) Application.Current.Resources["AppBrush"],
                         Width = 1,
                         Opacity = 0.7,
                         VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(leftOffset, 0, 0, 0)
-                    });
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+                    ScrollerContainer.Children.Add(_currentTimeLine);
+                }
+
+                _currentTimeLine.Margin = new Thickness(leftOffset, 0, 0, 0);
             }
         }
 
@@ -207,7 +235,7 @@ namespace Pa_TV
                 Scroller.ScrollToHorizontalOffset(leftMargin - TimeWidth);
             }
 
-            SearchStatusText.Text = string.Format("Resultat for \"{0}\" ({1})", query, found);
+            SearchStatusText.Text = string.Format("Resultater for \"{0}\" ({1})", query, found);
         }
 
         private void ClearSearch_Click(object sender, RoutedEventArgs e)

@@ -74,13 +74,13 @@
         </Style>
         <Style x:Key="ChannelButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="ContentContainer" BorderThickness="0,1,0,1" BorderBrush="#FF3C3C3C"
-                                Height="{Binding RowHeight}" Margin="0,0,0,-1">
+                        <Border x:Name="ContentContainer" BorderThickness="0,1,0,1" Height="60" BorderBrush="#FF3C3C3C" Margin="0,0,0,-1">
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Margin="0" Width="130" Height="90"
+                                   Margin="0"
                                    Source="{Binding Channel.LogoUrl}" />
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ApplicationViewStates">
@@ -121,7 +121,7 @@
     </common:LayoutAwarePage.Resources>
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
+            <RowDefinition x:Name="TopRow" Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid>
@@ -193,8 +193,25 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="30"/>
+                        </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TopRow" Storyboard.TargetProperty="Height">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ChannelsStackPanel" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="50"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Scroller" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="50,0,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderScroller" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="50,0,0,0"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

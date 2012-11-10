@@ -10,20 +10,41 @@
     <common:LayoutAwarePage.Resources>
         <Converters:Date x:Key="DateConverter"/>
         <DataTemplate x:Key="EventItemTemplate">
-            <StackPanel Height="80" Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Start, Converter={StaticResource DateConverter}}"
-                               Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
-                               Margin="15,0,15,10" />
-                    <TextBlock>-</TextBlock>
-                    <TextBlock Text="{Binding End, Converter={StaticResource DateConverter}}"
-                               Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
-                               Margin="15,0,15,10" />
+            <Button x:Name="ContentContainer" Style="{StaticResource TransparentButtonStyle}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource PageSubheaderTextStyle}" Margin="0,0,0,6" />
+                    <TextBlock Text="{Binding Description}" Style="{StaticResource ItemTextStyle}" Margin="0,0,0,6" />
+                    <StackPanel Orientation="Horizontal" Opacity="0.7">
+                        <TextBlock Text="{Binding Start, Converter={StaticResource DateConverter}}" Style="{StaticResource ItemTextStyle}" />
+                        <TextBlock Style="{StaticResource ItemTextStyle}" Margin="6,0,6,0">-</TextBlock>
+                        <TextBlock Text="{Binding End, Converter={StaticResource DateConverter}}" Style="{StaticResource ItemTextStyle}" />
+                    </StackPanel>
                 </StackPanel>
-                <TextBlock Text="{Binding Title}"
-                           Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource GroupHeaderTextStyle}"
-                           Margin="15,0,15,10" />
-            </StackPanel>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="ApplicationViewStates">
+                        <VisualState x:Name="FullScreenLandscape"/>
+                        <VisualState x:Name="Filled"/>
+                        <VisualState x:Name="FullScreenPortrait"/>
+                        <VisualState x:Name="Snapped"/>
+                    </VisualStateGroup>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="PointerOver">
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <PointerDownThemeAnimation TargetName="ContentContainer"/>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Disabled"/>
+                    </VisualStateGroup>
+                    <VisualStateGroup x:Name="FocusStates">
+                        <VisualState x:Name="Focused"/>
+                        <VisualState x:Name="Unfocused" />
+                        <VisualState x:Name="PointerFocused" />
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </DataTemplate>
     </common:LayoutAwarePage.Resources>
     
@@ -45,13 +66,15 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ListView
-                x:Name="itemGridView"
-                TabIndex="1"
-                Padding="116,40,116,0"
-                ItemTemplate="{StaticResource EventItemTemplate}"
-                SelectionMode="Multiple"
-                IsSwipeEnabled="false"/>
+            <ScrollViewer 
+                ZoomMode="Disabled" 
+                HorizontalScrollMode="Disabled"
+                Padding="116,40,116,0">
+                <ItemsControl
+                    x:Name="itemGridView"
+                    TabIndex="1"
+                    ItemTemplate="{StaticResource EventItemTemplate}"/>
+            </ScrollViewer>
         </Grid>
         
         <VisualStateManager.VisualStateGroups>
