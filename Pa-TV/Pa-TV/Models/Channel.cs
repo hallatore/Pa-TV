@@ -8,6 +8,7 @@ namespace Pa_TV.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public Uri LogoUrl { get; set; }
+        public Uri LogoUrlBig { get; set; }
         public IEnumerable<Event> Events { get; set; }
     }
 }
