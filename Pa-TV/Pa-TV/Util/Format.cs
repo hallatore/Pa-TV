@@ -12,7 +12,11 @@ namespace Pa_TV.Util
     {
         public static Uri CreateLogoUriFromKey(string key)
         {
-            return new Uri("http://m.get.no/rest/open/image/cms/resize?width=130&height=90&key=" + key);
+            return CreateLogoUriFromKey(key, 90,130);
+        }
+        public static Uri CreateLogoUriFromKey(string key, int height, int width)
+        {
+            return new Uri("http://m.get.no/rest/open/image/cms/resize?height="+height+"&width="+width+"&key=" + key);
         }
 
         public static DateTime ParseDate(string date)
