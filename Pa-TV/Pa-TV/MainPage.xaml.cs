@@ -76,7 +76,7 @@ namespace Pa_TV
             var start = viewModel.Start;
             var current = start.AddMinutes(30);
 
-            var er = new CachingEventRetriever();
+            var er = new EventRetriever();
             viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Channels);
 
             foreach (var channel in viewModel.ChannelList)

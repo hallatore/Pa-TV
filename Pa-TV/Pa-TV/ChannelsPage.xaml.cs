@@ -62,15 +62,10 @@ namespace Pa_TV
 
         private async Task LoadChannels()
         {
-            var er = new CachingEventRetriever();
-            var result = await er.GetEventsTodayAsync();
+            var er = new CachingCoreDataRetrieve();
+            var result = await er.GetCoreDataAsync();
             
-            var channels = result.Select(c => new Channel
-            {
-                Id = c.Id,
-                Name = c.Name,
-                LogoUrl = c.LogoUrl
-            }).ToList();
+            var channels = result.Channels.ToList();
 
             var selectedChannels = channels.Where(c => viewModel.Channels.Any(c2 => c2 == c.Id));
 
