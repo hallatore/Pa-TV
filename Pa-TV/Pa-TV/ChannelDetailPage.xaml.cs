@@ -20,7 +20,6 @@ namespace Pa_TV
     {
         private const int TimeWidth = 250;
         private const int RowHeight = 60;
-        private ChannelDetailsPageViewModel _viewModel;
 
         public ChannelDetailsPage()
         {
@@ -31,15 +30,9 @@ namespace Pa_TV
         {
             base.OnNavigatedTo(e);
 
-            //if (_viewModel == null)
-            //{
-            //    _viewModel = new ChannelDetailsPageViewModel
-            //    {
-            //        Channel = new Channel()
-            //    };
-
-            //    await LoadChannels();
-            //}
+            var channel = (Channel) e.Parameter;
+            TopBar.DataContext = channel;
+            itemGridView.ItemsSource = channel.Events;
         }
 
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)

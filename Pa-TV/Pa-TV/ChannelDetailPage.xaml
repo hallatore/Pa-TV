@@ -5,16 +5,25 @@
     xmlns:local="using:Pa_TV"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:common="using:Pa_TV.Common" mc:Ignorable="d"
+    xmlns:common="using:Pa_TV.Common" xmlns:Converters="using:Pa_TV.Converters" mc:Ignorable="d"
     UseLayoutRounding="True">
     <common:LayoutAwarePage.Resources>
-        <DataTemplate x:Key="ChannelItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="150" Height="150">
-                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                    <Image Source="{Binding LogoUrl}" Width="130" Height="90"/>
-                </Border>
-                <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" VerticalAlignment="Bottom" Margin="15,0,15,10"/>
-            </Grid>
+        <Converters:Date x:Key="DateConverter"/>
+        <DataTemplate x:Key="EventItemTemplate">
+            <StackPanel Height="80" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Start, Converter={StaticResource DateConverter}}"
+                               Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                               Margin="15,0,15,10" />
+                    <TextBlock>-</TextBlock>
+                    <TextBlock Text="{Binding End, Converter={StaticResource DateConverter}}"
+                               Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}"
+                               Margin="15,0,15,10" />
+                </StackPanel>
+                <TextBlock Text="{Binding Title}"
+                           Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource GroupHeaderTextStyle}"
+                           Margin="15,0,15,10" />
+            </StackPanel>
         </DataTemplate>
     </common:LayoutAwarePage.Resources>
     
@@ -23,24 +32,24 @@
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid x:Name="TopBar">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="Kanaldetaljer" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Image x:Name="channelLogo" Grid.Column="2" Source="http://devices.get.no/rest/open/image/cms/resize?key=25719&amp;height=140" 
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <Image x:Name="channelLogo" Grid.Column="2" Source="{Binding LogoUrlBig}" 
                    Height="120" Width="Auto" HorizontalAlignment="right" />
         </Grid>
 
         <Grid Grid.Row="1">
-            <GridView
+            <ListView
                 x:Name="itemGridView"
                 TabIndex="1"
                 Padding="116,40,116,0"
-                ItemTemplate="{StaticResource ChannelItemTemplate}"
+                ItemTemplate="{StaticResource EventItemTemplate}"
                 SelectionMode="Multiple"
                 IsSwipeEnabled="false"/>
         </Grid>
