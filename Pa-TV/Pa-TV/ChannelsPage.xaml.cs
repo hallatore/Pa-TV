@@ -62,6 +62,7 @@ namespace Pa_TV
 
         private async Task LoadChannels()
         {
+            ProgressRingControl.IsActive = true;
             var er = new CachingCoreDataRetrieve();
             var result = await er.GetCoreDataAsync();
             
@@ -76,6 +77,8 @@ namespace Pa_TV
             {
                 itemGridView.SelectedItems.Add(selectedChannel);
             }
+
+            ProgressRingControl.IsActive = false;
         }
     }
 }

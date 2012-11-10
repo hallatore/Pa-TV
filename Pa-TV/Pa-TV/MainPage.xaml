@@ -9,6 +9,7 @@
     UseLayoutRounding="True">
     <common:LayoutAwarePage.Resources>
         <Converters:Date x:Key="DateConverter"/>
+        <Converters:DayDate x:Key="DayDateConverter"/>
         <Converters:EventEnded x:Key="EventEndedConverter"/>
         <Converters:BoolToVisibility x:Key="BoolToVisibilityConverter"/>
         
@@ -127,13 +128,18 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Opacity="0" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="På TV" Style="{StaticResource PageHeaderTextStyle}"/>
+            
+            <Button Grid.Column="2" Style="{StaticResource TransparentButtonStyle}" Margin="0,15,0,0" Click="ShowHideDaySelection_Click">
+                <TextBlock Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
+            </Button>
 
-            <Button HorizontalAlignment="Right" Click="ClearSearch_Click" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource TransparentButtonStyle}">
+            <Button HorizontalAlignment="Right" Click="ClearSearch_Click" Grid.Column="3" VerticalAlignment="Center" Style="{StaticResource TransparentButtonStyle}">
                 <TextBlock x:Name="SearchStatusText" Margin="10,10,30,10" Text="" Style="{StaticResource SubheaderTextStyle}"/>
             </Button>
         </Grid>
@@ -176,7 +182,19 @@
                 <Grid x:Name="SearchHintContainer" IsHitTestVisible="False" Margin="120,0,0,0" VerticalAlignment="Bottom" Height="17" Opacity="0.7"/>
             </Grid>
         </Grid>
-        
+
+        <Grid Grid.RowSpan="2" Visibility="Collapsed" x:Name="DaySelectorGrid" Background="White" Margin="280,120,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ItemsControl Margin="0,10" x:Name="DaySelectorItems">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource TransparentButtonStyle}" Click="DaySelect_Click">
+                            <TextBlock Text="{Binding Converter={StaticResource DayDateConverter}}" Style="{StaticResource ItemTextStyle}" Margin="20,10" Foreground="Black"/>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="FullScreenLandscape"/>

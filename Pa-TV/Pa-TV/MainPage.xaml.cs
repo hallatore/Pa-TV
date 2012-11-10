@@ -57,6 +57,19 @@ namespace Pa_TV
                     Channels = App.GetChannelsOrDefault()
                 };
 
+                DataContext = viewModel;
+
+                DaySelectorItems.ItemsSource = new[]
+                {
+                    viewModel.Start,
+                    viewModel.Start.AddDays(1),
+                    viewModel.Start.AddDays(2),
+                    viewModel.Start.AddDays(3),
+                    viewModel.Start.AddDays(4),
+                    viewModel.Start.AddDays(5),
+                    viewModel.Start.AddDays(6)
+                };
+
                 await LoadChannels();
             }
         }
@@ -71,13 +84,20 @@ namespace Pa_TV
         {
             ProgressRingControl.IsActive = true;
             Scroller.Opacity = 0;
-            await Task.Delay(1000);
+            
+            ScrollerContainer.Children.Clear();
+            TimeHeaders.Children.Clear();
+            ChannelsStackPanel.Children.Clear();
+            SearchStatusText.Text = string.Empty;
+            SearchHintContainer.Children.Clear();
+            _currentTimeLine = null;
+            viewModel.End = DateTime.MinValue;
 
             var start = viewModel.Start;
             var current = start.AddMinutes(30);
 
             var er = new EventRetriever();
-            viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Channels);
+            viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Start, viewModel.Channels);
 
             foreach (var channel in viewModel.ChannelList)
             {
@@ -151,7 +171,7 @@ namespace Pa_TV
                     if (eventItem.Start < start) continue;
 
                     var button = GetEvent(eventItem, start);
-                    button.Click += button_Click;
+                    button.Click += ShowEventInfo_Click;
                     events.Children.Add(button);
                 }
 
@@ -296,7 +316,7 @@ namespace Pa_TV
             }
         }
 
-        async void button_Click(object sender, RoutedEventArgs e)
+        async void ShowEventInfo_Click(object sender, RoutedEventArgs e)
         {
             var eventItem = (Event) ((FrameworkElement) sender).DataContext;
             var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title);
@@ -360,6 +380,22 @@ namespace Pa_TV
                 SearchHintContainer.Margin = new Thickness(7);
             }
 
+        }
+
+        private void ShowHideDaySelection_Click(object sender, RoutedEventArgs e)
+        {
+            if (DaySelectorGrid.Visibility == Visibility.Collapsed)
+                DaySelectorGrid.Visibility = Visibility.Visible;
+            else
+                DaySelectorGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void DaySelect_Click(object sender, RoutedEventArgs e)
+        {
+            DaySelectorGrid.Visibility = Visibility.Collapsed;
+            var date = (DateTime) ((FrameworkElement) sender).DataContext;
+            viewModel.Start = date.AddHours(5);
+            LoadChannels();
         }
     }
 }

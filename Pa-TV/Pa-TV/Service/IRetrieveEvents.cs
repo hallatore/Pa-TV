@@ -10,6 +10,6 @@ namespace Pa_TV.Service
 {
     public interface IRetrieveEvents
     {
-        Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<string> channels);
+        Task<IEnumerable<Channel>> GetEventsTodayAsync(DateTime start, IEnumerable<string> channels);
     }
 }

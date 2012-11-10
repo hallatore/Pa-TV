@@ -114,6 +114,7 @@
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\BoolToVisibility.cs" />
+    <Compile Include="Converters\DayDate.cs" />
     <Compile Include="Converters\EventEnded.cs" />
     <Compile Include="Converters\Date.cs" />
     <Compile Include="ChannelsPage.xaml.cs">

@@ -13,9 +13,8 @@ namespace Pa_TV.Service
         private static readonly HttpClient Client = new HttpClient();
         private const int MinutesInDay = 1440;
 
-        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<string> channels = null)
+        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(DateTime start, IEnumerable<string> channels = null)
         {
-            var startOfTvDay = DateTime.Today.AddHours(5); // Today @ 5 'o clock in the morning
             var channelUri = string.Empty;
 
             if (channels != null && channels.Count() > 0)
@@ -23,7 +22,7 @@ namespace Pa_TV.Service
 
             var urlBuilder = new UriBuilder(EndpointUri)
             {
-                Query = string.Format("start={0}&duration={1}{2}", startOfTvDay.ToString(App.DateFormat), MinutesInDay, channelUri)
+                Query = string.Format("start={0}&duration={1}{2}", start.ToString(App.DateFormat), MinutesInDay, channelUri)
             };
 
             var jsonStream = await Client.GetStreamAsync(urlBuilder.Uri);
@@ -41,12 +40,12 @@ namespace Pa_TV.Service
             this.NonCahcingImplementation = new EventRetriever();
         }
 
-        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<string> channels = null)
+        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(DateTime start, IEnumerable<string> channels = null)
         {
             if (cache != null)
                 return cache;
 
-            cache = await NonCahcingImplementation.GetEventsTodayAsync(channels);
+            cache = await NonCahcingImplementation.GetEventsTodayAsync(start, channels);
             return cache;
         }
     }
