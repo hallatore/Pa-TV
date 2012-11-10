@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pa_TV.Models;
 
 namespace Pa_TV.ViewModels
 {
@@ -7,5 +8,6 @@ namespace Pa_TV.ViewModels
     {
         public DateTime Start { get; set; }
         public IEnumerable<string> Channels { get; set; }
+        public IEnumerable<Channel> ChannelList { get; set; }
     }
 }

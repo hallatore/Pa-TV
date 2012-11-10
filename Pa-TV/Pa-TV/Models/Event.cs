@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Pa_TV.Models
 {
-    public class Event
+    public class Event : INotifyPropertyChanged
     {
         public string Id { get; set; }
         public int GenreId { get; set; }
@@ -20,6 +21,30 @@ namespace Pa_TV.Models
         public bool Ended
         {
             get { return DateTime.Now >= End; }
+        }
+
+        private bool highLight;
+        public bool HighLight
+        {
+            get { return highLight; }
+            set
+            {
+                if (value != highLight)
+                {
+                    highLight = value;
+                    NotifyPropertyChanged("HighLight");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

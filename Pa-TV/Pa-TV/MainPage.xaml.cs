@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Pa_TV.Models;
 using Pa_TV.Service;
 using Pa_TV.ViewModels;
+using Windows.ApplicationModel.Search;
+using Windows.Devices.Input;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -24,6 +27,9 @@ namespace Pa_TV
         public MainPage()
         {
             InitializeComponent();
+
+            SearchPane.GetForCurrentView().ShowOnKeyboardInput = true;
+            SearchPane.GetForCurrentView().QuerySubmitted += MainPageQuerySubmitted;
         }
 
         protected async override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -42,20 +48,34 @@ namespace Pa_TV
             }
         }
 
+        protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            viewModel = null;
+        }
+
         private async Task LoadChannels()
         {
+            ProgressRingControl.IsActive = true;
+            Scroller.Opacity = 0;
+            //ContentContainer.Visibility = Visibility.Collapsed;
+            await Task.Delay(1000);
+
             var start = viewModel.Start;
             var end = start.AddDays(1);
             var current = start.AddMinutes(30);
 
             var er = new EventRetriever();
-            var result = await er.GetEventsTodayAsync(viewModel.Channels);
+            viewModel.ChannelList = await er.GetEventsTodayAsync(viewModel.Channels);
 
             DrawTimeLines(current, end, TimeWidth);
-            DrawChannels(result, start);
+            DrawChannels(viewModel.ChannelList, start);
             DrawCurrentTimeLine(start, end);
+            Scroller.Opacity = 1;
             UpdateLayout();
             ScrollToCurrentTime(start, end);
+
+            ProgressRingControl.IsActive = false;
         }
 
         private void DrawCurrentTimeLine(DateTime start, DateTime end)
@@ -131,6 +151,61 @@ namespace Pa_TV
             ScrollerContainer.Children.Add(sp);
         }
 
+        void MainPageQuerySubmitted(SearchPane sender, SearchPaneQuerySubmittedEventArgs args)
+        {
+            Search(args.QueryText);
+        }
+
+        public void Search(string query)
+        {
+            if (viewModel == null || string.IsNullOrWhiteSpace(query)) return;
+
+            var first = true;
+
+            SearchHintContainer.Children.Clear();
+            var hintWidth = SearchHintContainer.ActualWidth;
+            var eventsWidth = ScrollerContainer.ActualWidth;
+            var start = viewModel.Start;
+
+
+            foreach(var channel in viewModel.ChannelList)
+            {
+                foreach(var eventItem in channel.Events)
+                {
+                    if (Regex.IsMatch(eventItem.Title, query, RegexOptions.IgnoreCase))
+                    {
+                        eventItem.HighLight = true;
+
+                        var leftTime = eventItem.Start - start;
+                        var leftMargin = (leftTime.TotalMinutes/30)*TimeWidth;
+
+                        var widthTime = eventItem.End - eventItem.Start;
+                        var width = (widthTime.TotalMinutes/30)*TimeWidth;
+
+                        if (first)
+                        {
+                            first = false;
+                            Scroller.ScrollToHorizontalOffset(leftMargin - TimeWidth);
+                        }
+
+                        leftMargin = leftMargin/eventsWidth*hintWidth;
+                        width = width/eventsWidth*hintWidth;
+
+                        SearchHintContainer.Children.Add(new Grid
+                        {
+                            Background =
+                                (Brush) Application.Current.Resources["AppBrush"],
+                            Margin = new Thickness(leftMargin, 0, 0, 0),
+                            Width = width,
+                            HorizontalAlignment = HorizontalAlignment.Left
+                        });
+                    }
+                    else
+                        eventItem.HighLight = false;
+                }
+            }
+        }
+
         private void DrawTimeLines(DateTime current, DateTime end, int marginLeft)
         {
             while (current < end)
@@ -169,7 +244,9 @@ namespace Pa_TV
         async void button_Click(object sender, RoutedEventArgs e)
         {
             var eventItem = (Event) ((FrameworkElement) sender).DataContext;
-            await new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title).ShowAsync();
+            var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title);
+            dialog.Commands.Add(new UICommand("Lukk"));
+            await dialog.ShowAsync();
         }
 
         private Button GetEvent(Event eventItem, DateTime start)
@@ -213,6 +290,21 @@ namespace Pa_TV
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(ChannelsPage));
+        }
+
+        private void Scroller_PointerEntered_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
+            {
+                SearchHintContainer.Height = 17;
+                SearchHintContainer.Margin = new Thickness(0);
+            }
+            else
+            {
+                SearchHintContainer.Height = 2;
+                SearchHintContainer.Margin = new Thickness(7);
+            }
+
         }
     }
 }
