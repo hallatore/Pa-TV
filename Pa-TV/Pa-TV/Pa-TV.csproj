@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ChannelGroup.cs" />
+    <Compile Include="ViewModels\EventForDates.cs" />
     <Compile Include="Models\CoreData.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Service\IRetrieveEvents.cs" />
     <Compile Include="Util\Format.cs" />
     <Compile Include="ViewModels\ChannelsPageViewModel.cs" />
+    <Compile Include="ViewModels\ChannelDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
