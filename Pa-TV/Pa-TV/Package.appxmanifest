@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="7faf23aa-9f06-4f0f-90e8-fb13f24bd236" Publisher="CN=Tore" Version="1.0.0.2" />
+  <Identity Name="7faf23aa-9f06-4f0f-90e8-fb13f24bd236" Publisher="CN=Tore" Version="1.0.0.3" />
   <Properties>
     <DisplayName>Pa-TV</DisplayName>
     <PublisherDisplayName>Tore</PublisherDisplayName>
@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Pa_TV.App">
-      <VisualElements DisplayName="Pa-TV" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Pa-TV" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
+      <VisualElements DisplayName="Pa-TV" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Pa-TV" ForegroundText="light" BackgroundColor="#EF9608">
+        <DefaultTile ShowName="noLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
     </Application>

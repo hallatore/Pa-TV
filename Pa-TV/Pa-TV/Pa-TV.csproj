@@ -115,6 +115,10 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\EventEnded.cs" />
     <Compile Include="Converters\Date.cs" />
+    <Compile Include="ChannelsPage.xaml.cs">
+      <DependentUpon>ChannelsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Settings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -134,6 +138,8 @@
     <Compile Include="Service\IRetrieveCoreData.cs" />
     <Compile Include="Service\IRetrieveEvents.cs" />
     <Compile Include="Util\Format.cs" />
+    <Compile Include="ViewModels\ChannelsPageViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -156,6 +162,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Common\StandardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChannelsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

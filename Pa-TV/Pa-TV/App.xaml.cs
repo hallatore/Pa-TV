@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using Pa_TV.Extensions;
+using Pa_TV.Models;
 using Pa_TV.Service;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -85,6 +89,17 @@ namespace Pa_TV
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        public static IEnumerable<string> GetChannelsOrDefault()
+        {
+            var channels = ApplicationData.Current.RoamingSettings.Values["Channels"] as string;
+
+            if (string.IsNullOrWhiteSpace(channels))
+                return new List<string> { "10","11","9","12","299","15","21","156" };
+
+
+            return channels.ToObject<ChannelGroup>().ChannelIds;
         }
     }
 }

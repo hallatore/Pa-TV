@@ -11,6 +11,11 @@
         <Converters:Date x:Key="DateConverter"/>
         <Converters:EventEnded x:Key="EventEndedConverter"/>
         
+        <Style x:Key="ChooseChannelsAppBarStyle" TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.Name" Value="Velg kanaler"/>
+            <Setter Property="Content" Value="&#xE133;"/>
+        </Style>
+        
         <Style x:Key="EventButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Template">
@@ -87,7 +92,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ScrollViewer 
+                <ScrollViewer
                     Margin="120,0,0,0"
                     Padding="0,0,0,0" 
                     ViewChanged="Scroller_ViewChanged_1" 
@@ -98,9 +103,7 @@
                     ZoomMode="Disabled" 
                     HorizontalScrollBarVisibility="Visible" 
                     Background="#202020">
-                    <Grid x:Name="ScrollerContainer" Margin="0,0,0,0">
-                        <StackPanel x:Name="EventsStackPanel" HorizontalAlignment="Left"/>
-                    </Grid>
+                    <Grid x:Name="ScrollerContainer" Margin="0,0,0,0"/>
                 </ScrollViewer>
 
                 <ScrollViewer ZoomMode="Disabled" ViewChanged="ChannelsScroller_ViewChanged_1" Margin="0,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" x:Name="ChannelsScroller"  HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Hidden">
@@ -133,4 +136,14 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource ChooseChannelsAppBarStyle}" Click="Button_Click_3"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </common:LayoutAwarePage>

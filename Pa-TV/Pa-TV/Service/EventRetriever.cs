@@ -13,12 +13,12 @@ namespace Pa_TV.Service
         private static readonly HttpClient Client = new HttpClient();
         private const int MinutesInDay = 1440;
 
-        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<int> channels = null)
+        public async Task<IEnumerable<Channel>> GetEventsTodayAsync(IEnumerable<string> channels = null)
         {
             var startOfTvDay = DateTime.Today.AddHours(5); // Today @ 5 'o clock in the morning
             var channelUri = string.Empty;
 
-            if (channels != null)
+            if (channels != null && channels.Count() > 0)
                 channelUri = channels.Aggregate("&channels=", (current, channel) => current + (channel + ","));
 
             var urlBuilder = new UriBuilder(EndpointUri)
