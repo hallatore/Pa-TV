@@ -119,6 +119,9 @@
     <Compile Include="ChannelsPage.xaml.cs">
       <DependentUpon>ChannelsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChannelDetailPage.xaml.cs">
+      <DependentUpon>ChannelDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Settings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -139,6 +142,7 @@
     <Compile Include="Service\IRetrieveCoreData.cs" />
     <Compile Include="Service\IRetrieveEvents.cs" />
     <Compile Include="Util\Format.cs" />
+    <Compile Include="ViewModels\ChannelDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\ChannelsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
   </ItemGroup>
@@ -167,6 +171,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ChannelsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ChannelDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

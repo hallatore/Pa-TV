@@ -129,22 +129,14 @@ namespace Pa_TV
 
                 sp.Children.Add(events);
 
-                var channelElement = new Border
-                    {
-                        BorderThickness = new Thickness(0, 1, 0, 1),
-                        BorderBrush = new SolidColorBrush(Color.FromArgb(255, 60, 60, 60)),
-                        Height = RowHeight,
-                        Margin = new Thickness(0, 0, 0, -1),
-                        Child = new Image
-                            {
-                                Source = new BitmapImage(channel.LogoUrl),
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-                                Margin = new Thickness(0, 0, 0, 0),
-                                Width = 130,
-                                Height = 90
-                            }
-                    };
+                var channelElement = new Button
+                {
+                    DataContext = new { RowHeight = RowHeight, Channel = channel },
+                    Style = (Style)Resources["ChannelButtonStyle"],
+                };
+                channelElement.Click += ChannelElementOnClick;
+
+
                 ChannelsStackPanel.Children.Add(channelElement);
             }
 
@@ -160,20 +152,25 @@ namespace Pa_TV
         {
             if (viewModel == null || string.IsNullOrWhiteSpace(query)) return;
 
-            var first = true;
-
             SearchHintContainer.Children.Clear();
             var hintWidth = SearchHintContainer.ActualWidth;
             var eventsWidth = ScrollerContainer.ActualWidth;
             var start = viewModel.Start;
+            var found = 0;
+            Event firstItem = null;
 
-
-            foreach(var channel in viewModel.ChannelList)
+            foreach (var channel in viewModel.ChannelList)
             {
-                foreach(var eventItem in channel.Events)
+                foreach (var eventItem in channel.Events)
                 {
-                    if (Regex.IsMatch(eventItem.Title, query, RegexOptions.IgnoreCase))
+                    if ((Regex.IsMatch(eventItem.Title, query, RegexOptions.IgnoreCase) || 
+                        Regex.IsMatch(eventItem.Description, query, RegexOptions.IgnoreCase)) && 
+                        eventItem.End > start)
                     {
+                        if ((firstItem == null || firstItem.Start > eventItem.Start) && eventItem.End >= DateTime.Now)
+                            firstItem = eventItem;
+
+                        found++;
                         eventItem.HighLight = true;
 
                         var leftTime = eventItem.Start - start;
@@ -181,12 +178,6 @@ namespace Pa_TV
 
                         var widthTime = eventItem.End - eventItem.Start;
                         var width = (widthTime.TotalMinutes/30)*TimeWidth;
-
-                        if (first)
-                        {
-                            first = false;
-                            Scroller.ScrollToHorizontalOffset(leftMargin - TimeWidth);
-                        }
 
                         leftMargin = leftMargin/eventsWidth*hintWidth;
                         width = width/eventsWidth*hintWidth;
@@ -204,6 +195,42 @@ namespace Pa_TV
                         eventItem.HighLight = false;
                 }
             }
+
+            if (firstItem != null)
+            {
+                var leftTime = firstItem.Start - start;
+                var leftMargin = (leftTime.TotalMinutes / 30) * TimeWidth;
+
+                var widthTime = firstItem.End - firstItem.Start;
+                var width = (widthTime.TotalMinutes / 30) * TimeWidth;
+
+                Scroller.ScrollToHorizontalOffset(leftMargin - TimeWidth);
+            }
+
+            SearchStatusText.Text = string.Format("Resultat for \"{0}\" ({1})", query, found);
+        }
+
+        private void ClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            SearchStatusText.Text = string.Empty;
+            SearchHintContainer.Children.Clear();
+
+            foreach (var channel in viewModel.ChannelList)
+            {
+                foreach (var eventItem in channel.Events)
+                {
+                    eventItem.HighLight = false;
+                }
+            }
+        }
+
+        private void ChannelElementOnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var button = (Button) routedEventArgs.OriginalSource;
+            var dctx = button.DataContext;
+            Channel channel = ((dynamic) dctx).Channel;
+
+            Frame.Navigate(typeof(ChannelDetailsPage), channel);
         }
 
         private void DrawTimeLines(DateTime current, DateTime end, int marginLeft)
