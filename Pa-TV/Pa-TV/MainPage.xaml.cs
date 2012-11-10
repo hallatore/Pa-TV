@@ -123,6 +123,8 @@ namespace Pa_TV
         }
 
         private Grid _currentTimeLine;
+        private Event _activeEventItem;
+
         private void DrawCurrentTimeLine(DateTime start, DateTime end)
         {
             if (DateTime.Now >= start && DateTime.Now <= end)
@@ -321,18 +323,15 @@ namespace Pa_TV
 
         async void ShowEventInfo_Click(object sender, RoutedEventArgs e)
         {
-            var eventItem = (Event) ((FrameworkElement) sender).DataContext;
+            _activeEventItem = (Event) ((FrameworkElement) sender).DataContext;
 
-            TypedEventHandler<DataTransferManager, DataRequestedEventArgs> onDataRequested = (manager, args) => OnDataRequested(manager, args, eventItem);
-            DataTransferManager.GetForCurrentView().DataRequested += onDataRequested;
-
-            var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title);
-            dialog.Commands.Add(new UICommand("Lukk"));
+            DataTransferManager.GetForCurrentView().DataRequested += OnDataRequested;
+            var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", _activeEventItem.Start, _activeEventItem.End, _activeEventItem.Description), _activeEventItem.Title);
             dialog.Commands.Add(new UICommand("Del", OnCLickShare));
+            dialog.Commands.Add(new UICommand("Lukk"));
 
             await dialog.ShowAsync();
 
-            DataTransferManager.GetForCurrentView().DataRequested -= onDataRequested;
         }
 
         private void OnCLickShare(IUICommand command)
@@ -340,16 +339,21 @@ namespace Pa_TV
             DataTransferManager.ShowShareUI();
         }
 
-        void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args, Event item)
+        void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
+            if (_activeEventItem == null)
+                return;
+
             var request = args.Request;
 
-            request.Data.Properties.Title = item.Title;
-            request.Data.Properties.Description = item.Description;
+            request.Data.Properties.Title = _activeEventItem.Title;
+            request.Data.Properties.Description = _activeEventItem.Description;
 
             request.Data.SetText(string.Format(
-                "Ta en titt på \"{0}\" ({1} - {2})", 
-                item.Title, item.Start, item.End));
+                "Ta en titt på \"{0}\" ({1} - {2})",
+                _activeEventItem.Title, _activeEventItem.Start, _activeEventItem.End));
+
+            DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
         }
 
 
