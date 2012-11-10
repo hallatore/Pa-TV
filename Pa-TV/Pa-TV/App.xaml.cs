@@ -98,7 +98,6 @@ namespace Pa_TV
             if (string.IsNullOrWhiteSpace(channels))
                 return new List<string> { "10","11","9","12","299","15","21","156" };
 
-
             return channels.ToObject<ChannelGroup>().ChannelIds;
         }
     }

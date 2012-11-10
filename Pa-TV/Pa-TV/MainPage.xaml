@@ -62,6 +62,52 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ChannelButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="ContentContainer" BorderThickness="0,1,0,1" BorderBrush="#FF3C3C3C"
+                                Height="{Binding RowHeight}" Margin="0,0,0,-1">
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Margin="0" Width="130" Height="90"
+                                   Source="{Binding Channel.LogoUrl}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ApplicationViewStates">
+                                    <VisualState x:Name="FullScreenLandscape"/>
+                                    <VisualState x:Name="Filled"/>
+                                    <VisualState x:Name="FullScreenPortrait"/>
+                                    <VisualState x:Name="Snapped"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#232323"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </common:LayoutAwarePage.Resources>
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
