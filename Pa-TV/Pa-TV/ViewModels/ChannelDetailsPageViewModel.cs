@@ -17,6 +17,11 @@ namespace Pa_TV.ViewModels
 
         public ObservableCollection<EventForDate> EventsForDate { get; set; }
 
+        public Channel Channel
+        {
+            get { return _channel; }
+        }
+
         public ChannelDetailsPageViewModel(Channel channel)
         {
             _channel = channel;
@@ -25,11 +30,21 @@ namespace Pa_TV.ViewModels
             EventsForDate = new ObservableCollection<EventForDate>();
         }
 
-        public async void LoadData(int daysToLoad = 4)
+        public async Task LoadData(int daysToLoad = 4)
         {
+            var tasks = new List<Task<EventForDate>>();
+
             for (var i = 0; i < daysToLoad; i++)
             {
-                EventsForDate.Add(await GetEventsForChannelOnDate(StartDate.AddDays(i)));
+                var date = StartDate.AddDays(i);
+                tasks.Add(GetEventsForChannelOnDate(date));
+            }
+
+            await Task.WhenAll(tasks);
+
+            foreach (var task in tasks)
+            {
+                EventsForDate.Add(task.Result);
             }
         }
 
@@ -39,10 +54,10 @@ namespace Pa_TV.ViewModels
             var channel = channels.First();
 
             return new EventForDate
-                   {
-                       Date = dateTime,
-                       Events = new ObservableCollection<Event>(channel.Events)
-                   };
+            {
+                Date = dateTime,
+                Events = new ObservableCollection<Event>(channel.Events.Where(c => c.Ended == false))
+            };
         }
     }
 }

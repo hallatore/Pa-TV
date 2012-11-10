@@ -46,6 +46,8 @@
                 </VisualStateManager.VisualStateGroups>
             </Button>
         </DataTemplate>
+
+        <Converters:DayDate x:Key="DayDateConverter"/>
     </common:LayoutAwarePage.Resources>
     
     <Grid Style="{StaticResource LayoutRootStyle}">
@@ -60,21 +62,44 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Image x:Name="channelLogo" Grid.Column="2" Source="{Binding LogoUrlBig}" 
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Channel.Name}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <Image x:Name="channelLogo" Grid.Column="2" Source="{Binding Channel.LogoUrlBig}" 
                    Height="120" Width="Auto" HorizontalAlignment="right" />
         </Grid>
 
-        <Grid Grid.Row="1">
-            <ScrollViewer 
-                ZoomMode="Disabled" 
-                HorizontalScrollMode="Disabled"
-                Padding="116,40,116,0">
-                <ItemsControl
-                    x:Name="itemGridView"
-                    TabIndex="1"
-                    ItemTemplate="{StaticResource EventItemTemplate}"/>
-            </ScrollViewer>
+        <Grid Grid.Row="1" >
+            <ItemsControl Margin="116,40,0,0" ItemsSource="{Binding EventsForDate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource PageSubheaderTextStyle}" Margin="0,0,0,20" Text="{Binding Date, Converter={StaticResource DayDateConverter}}" />
+                            <ScrollViewer 
+                                Grid.Row="1"
+                                Padding="0,0,17,0"
+                                Width="290"
+                                ZoomMode="Disabled" 
+                                HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Events}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource EventButtonStyle}" Click="Button_Click_1" HorizontalAlignment="Stretch" Height="55" Margin="0,0,0,-1"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
         
         <VisualStateManager.VisualStateGroups>

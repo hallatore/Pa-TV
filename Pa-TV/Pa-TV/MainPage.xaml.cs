@@ -337,7 +337,7 @@ namespace Pa_TV
                 DataContext = eventItem,
                 Margin = new Thickness(leftMargin, 0, 0, 0),
                 Width = width + 1,
-                Style = (Style)Resources["EventButtonStyle"]
+                Style = (Style)Application.Current.Resources["EventButtonStyle"]
             };
         }
 
