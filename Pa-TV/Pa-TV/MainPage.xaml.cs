@@ -109,26 +109,27 @@ namespace Pa_TV
 
                 sp.Children.Add(events);
 
-                var channelElement = new Border
-                    {
-                        BorderThickness = new Thickness(0, 1, 0, 1),
-                        BorderBrush = new SolidColorBrush(Color.FromArgb(255, 60, 60, 60)),
-                        Height = RowHeight,
-                        Margin = new Thickness(0, 0, 0, -1),
-                        Child = new Image
-                            {
-                                Source = new BitmapImage(channel.LogoUrl),
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-                                Margin = new Thickness(0, 0, 0, 0),
-                                Width = 130,
-                                Height = 90
-                            }
-                    };
+                var channelElement = new Button
+                {
+                    DataContext = new { RowHeight = RowHeight, Channel = channel },
+                    Style = (Style)Resources["ChannelButtonStyle"],
+                };
+                channelElement.Click += ChannelElementOnClick;
+
+
                 ChannelsStackPanel.Children.Add(channelElement);
             }
 
             ScrollerContainer.Children.Add(sp);
+        }
+
+        private void ChannelElementOnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var button = (Button) routedEventArgs.OriginalSource;
+            var dctx = button.DataContext;
+            Channel channel = ((dynamic) dctx).Channel;
+
+            Frame.Navigate(typeof(ChannelDetailsPage), channel);
         }
 
         private void DrawTimeLines(DateTime current, DateTime end, int marginLeft)
