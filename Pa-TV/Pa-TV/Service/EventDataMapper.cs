@@ -30,7 +30,8 @@ namespace Pa_TV.Service
                        Id = c.id,
                        Name = c.name,
                        Events = (c.events != null) ? c.events.Select(MapEvent).ToList() : Enumerable.Empty<Event>(),
-                       LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey)
+                       LogoUrl = Format.CreateLogoUriFromKey(c.logoBlackBgKey),
+                       LogoUrlBig = Format.CreateLogoUriFromKey(c.logoBlackBgKey, 0, 140)
                    };
         }
 

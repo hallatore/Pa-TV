@@ -16,4 +16,24 @@ namespace Pa_TV.Service
             return CoreDataMapper.MapCoreData(coreDataJson);
         }
     }
+
+    public class CachingCoreDataRetrieve : IRetrieveCoreData
+    {
+        private CoreData cache = null;
+        protected CoreDataRetriever NonCahcingImplementation { get; set; }
+
+        public CachingCoreDataRetrieve()
+        {
+            this.NonCahcingImplementation = new CoreDataRetriever();
+        }
+
+        public async Task<CoreData> GetCoreDataAsync()
+        {
+            if (cache != null)
+                return cache;
+
+            cache = await NonCahcingImplementation.GetCoreDataAsync();
+            return cache;
+        }
+    }
 }

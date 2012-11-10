@@ -142,7 +142,6 @@
     <Compile Include="Service\IRetrieveCoreData.cs" />
     <Compile Include="Service\IRetrieveEvents.cs" />
     <Compile Include="Util\Format.cs" />
-    <Compile Include="ViewModels\ChannelDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\ChannelsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
   </ItemGroup>
