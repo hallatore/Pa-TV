@@ -3,6 +3,7 @@ using System.Linq;
 using Pa_TV.Models;
 using Pa_TV.Service;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -12,8 +13,8 @@ namespace Pa_TV
 {
     public sealed partial class MainPage
     {
-        private const int TimeWidth = 300;
-        private const int RowHeight = 55;
+        private const int TimeWidth = 250;
+        private const int RowHeight = 60;
 
         public MainPage()
         {
@@ -26,20 +27,36 @@ namespace Pa_TV
 
             var start = DateTime.Today.AddHours(5);
 
-            if (DateTime.Now.Hour < 5)
-                start = start.AddDays(-1);
-
             var end = start.AddDays(1);
-            var current = start;
-            var marginLeft = 0;
+            var marginLeft = TimeWidth;
+            var current = start.AddMinutes(30);
 
             while (current < end)
             {
-                TimeHeaders.Children.Add(new TextBlock
+                var time = new TextBlock
                 {
-                    Style = (Style)Application.Current.Resources["GroupHeaderTextStyle"],
+                    Style = (Style) Application.Current.Resources["ItemTextStyle"],
                     Text = current.ToString("HH:mm"),
-                    Margin = new Thickness(marginLeft,0,0,0)
+                    Margin = new Thickness(marginLeft - 15, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Bottom
+                };
+
+                if (current.Minute == 0)
+                {
+                    time.Style = (Style) Application.Current.Resources["GroupHeaderTextStyle"];
+                    time.Margin = new Thickness(marginLeft -25, 0, 0, 0);
+                }
+
+                TimeHeaders.Children.Add(time);
+
+                ScrollerContainer.Children.Insert(0,new Grid
+                {
+                    Background = new SolidColorBrush(Colors.White),
+                    Width = 1,
+                    Opacity = 0.05,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(marginLeft, 0, 0, 0)
                 });
 
                 marginLeft += TimeWidth;
@@ -48,9 +65,9 @@ namespace Pa_TV
 
             var er = new EventRetriever();
 
-            var result = await er.GetEventsTodayAsync();
+            var result = await er.GetEventsTodayAsync(new int[] { 10, 11, 12, 9, 15 });
 
-            foreach (var channel in result.Where(c => c.Name.StartsWith("TV")))
+            foreach (var channel in result)
             {
                 var events = new Grid();
                 events.HorizontalAlignment = HorizontalAlignment.Left;
@@ -59,30 +76,56 @@ namespace Pa_TV
 
                 foreach (var eventItem in channel.Events)
                 {
-                    if (eventItem.Start >= start)
-                    events.Children.Add(GetEvent(eventItem, start));
+                    if (eventItem.Start < start) continue;
+
+                    var button = GetEvent(eventItem, start);
+                    button.Click += button_Click;
+                    events.Children.Add(button);
                 }
 
                 EventsStackPanel.Children.Add(events);
 
-                ChannelsStackPanel.Children.Add(new Image { Source = new BitmapImage(channel.LogoUrl), Height = RowHeight - 1, HorizontalAlignment = HorizontalAlignment.Right });
+                var channelElement = new Border
+                {
+                    BorderThickness = new Thickness(0, 1, 0, 1),
+                    BorderBrush = new SolidColorBrush(Color.FromArgb(255, 60, 60, 60)),
+                    Height = RowHeight,
+                    Margin = new Thickness(0,0,0,-1),
+                    Child = new Image
+                    {
+                        Source = new BitmapImage(channel.LogoUrl),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0,0,0,0)
+                    }
+                };
+                ChannelsStackPanel.Children.Add(channelElement);
             }
 
-            var now = DateTime.Now - start;
-            var leftOffset = (now.TotalMinutes/30)*TimeWidth;
-
-            Scroller.ScrollToHorizontalOffset(leftOffset);
-            ScrollerContainer.Children.Add(new Grid
+            if (DateTime.Now >= start && DateTime.Now <= end)
             {
-                Background = new SolidColorBrush(Colors.Yellow),
-                Width = 5,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(leftOffset, 0, 0, 0)
-            });
+                var now = DateTime.Now - start;
+                var leftOffset = (now.TotalMinutes/30)*TimeWidth;
+
+                Scroller.ScrollToHorizontalOffset(leftOffset);
+                ScrollerContainer.Children.Add(new Grid
+                {
+                    Background = new SolidColorBrush(Colors.Yellow),
+                    Width = 1,
+                    Opacity = 0.7,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(300, 0, 0, 0)
+                });
+            }
         }
 
-        private UIElement GetEvent(Event eventItem, DateTime start)
+        async void button_Click(object sender, RoutedEventArgs e)
+        {
+            var eventItem = (Event) ((FrameworkElement) sender).DataContext;
+            await new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", eventItem.Start, eventItem.End, eventItem.Description), eventItem.Title).ShowAsync();
+        }
+
+        private Button GetEvent(Event eventItem, DateTime start)
         {
             var leftTime = eventItem.Start - start;
             var leftMargin = (leftTime.TotalMinutes / 30) * TimeWidth;

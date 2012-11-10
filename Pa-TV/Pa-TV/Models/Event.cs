@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pa_TV.Models
 {
@@ -21,5 +17,9 @@ namespace Pa_TV.Models
             get { return Start.AddMinutes(Duration); }
         }
 
+        public bool Ended
+        {
+            get { return DateTime.Now >= End; }
+        }
     }
 }

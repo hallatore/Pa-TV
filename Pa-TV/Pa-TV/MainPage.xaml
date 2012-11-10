@@ -9,6 +9,7 @@
     UseLayoutRounding="True">
     <common:LayoutAwarePage.Resources>
         <Converters:Date x:Key="DateConverter"/>
+        <Converters:EventEnded x:Key="EventEndedConverter"/>
         
         <Style x:Key="EventButtonStyle" TargetType="Button">
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -16,9 +17,9 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#3C3C3C" Background="#262626">
-                            <Grid Margin="12,0">
+                            <Grid Margin="12,0" Opacity="{Binding Ended, Converter={StaticResource EventEndedConverter}}">
                                 <TextBlock VerticalAlignment="Top" TextWrapping="NoWrap" Foreground="White" Text="{Binding Title}" Style="{StaticResource ItemTextStyle}"/>
-                                <TextBlock VerticalAlignment="Bottom" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>
+                                <TextBlock VerticalAlignment="Bottom" TextWrapping="NoWrap" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>
                             </Grid>
                         <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ApplicationViewStates">
@@ -32,7 +33,7 @@
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#232323"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -41,7 +42,6 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
                                             </ObjectAnimationUsingKeyFrames>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Disabled"/>
@@ -74,36 +74,37 @@
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <Grid>
-                <ScrollViewer ZoomMode="Disabled" x:Name="HeaderScroller" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <Grid Margin="222,0,0,0">
-                        <Grid x:Name="TimeHeaders"/>
+                <ScrollViewer Margin="120,0,0,0" ZoomMode="Disabled" x:Name="HeaderScroller" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <Grid>
+                        <Grid x:Name="TimeHeaders" Margin="0,0,0,10" Opacity="0.5"/>
                     </Grid>
                 </ScrollViewer>
-                <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" Width="222"/>
             </Grid>
 
             <Grid Grid.Row="1">
                 <ScrollViewer 
-                    Padding="0,0,0,20" 
+                    Margin="120,0,0,0"
+                    Padding="0,0,0,0" 
                     ViewChanged="Scroller_ViewChanged_1" 
                     x:Name="Scroller" 
-                    HorizontalScrollMode="Enabled" 
+                    HorizontalScrollMode="Auto" 
                     VerticalScrollBarVisibility="Hidden" 
-                    VerticalScrollMode="Enabled" 
+                    VerticalScrollMode="Auto" 
                     ZoomMode="Disabled" 
-                    HorizontalScrollBarVisibility="Visible">
-                    <Grid x:Name="ScrollerContainer" Margin="250,0,0,0" Background="#111111">
+                    HorizontalScrollBarVisibility="Visible" 
+                    Background="#202020">
+                    <Grid x:Name="ScrollerContainer" Margin="0,0,0,0">
                         <StackPanel x:Name="EventsStackPanel" HorizontalAlignment="Left"/>
                     </Grid>
                 </ScrollViewer>
 
-                <ScrollViewer ZoomMode="Disabled" ViewChanged="ChannelsScroller_ViewChanged_1" Margin="0,0,0,20" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" x:Name="ChannelsScroller"  HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Hidden">
-                    <StackPanel x:Name="ChannelsStackPanel" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="130" Margin="120,0,0,0"/>
+                <ScrollViewer ZoomMode="Disabled" ViewChanged="ChannelsScroller_ViewChanged_1" Margin="0,0,0,0" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Left" x:Name="ChannelsScroller"  HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Hidden">
+                    <StackPanel x:Name="ChannelsStackPanel" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="120"/>
                 </ScrollViewer>
             </Grid>
         </Grid>
