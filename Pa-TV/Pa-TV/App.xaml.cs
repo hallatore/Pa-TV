@@ -93,14 +93,46 @@ namespace Pa_TV
             deferral.Complete();
         }
 
-        public static IEnumerable<string> GetChannelsOrDefault()
+        public static IEnumerable<string> GetChannelsOrDefault(ApplicationData data = null)
         {
-            var channels = ApplicationData.Current.RoamingSettings.Values["Channels"] as string;
+            if (data == null)
+                data = ApplicationData.Current;
+
+            var channels = data.RoamingSettings.Values["Channels"] as string;
 
             if (string.IsNullOrWhiteSpace(channels))
                 return new List<string> { "10","11","9","12","299","15","21","156" };
 
             return channels.ToObject<ChannelGroup>().ChannelIds;
+        }
+
+        public static void SaveChannels(IEnumerable<string> channels)
+        {
+            var channelGroup = new ChannelGroup();
+            channelGroup.ChannelIds = channels;
+            ApplicationData.Current.RoamingSettings.Values["Channels"] = channelGroup.ToJson();
+            ApplicationData.Current.SignalDataChanged();
+        }
+
+        public static IEnumerable<string> GetFavoritesOrDefault(ApplicationData data = null)
+        {
+            if (data == null)
+                data = ApplicationData.Current;
+
+            var favorites = data.RoamingSettings.Values["Favorites"] as string;
+
+            if (string.IsNullOrWhiteSpace(favorites))
+                return new List<string>();
+
+            return favorites.ToObject<FavoriteGroup>().Favorites;
+        }
+
+        public static void SaveFavorites(IEnumerable<string> favorites)
+        {
+            var favoritGroup = new FavoriteGroup();
+            favoritGroup.Favorites = favorites;
+            ApplicationData.Current.RoamingSettings.Values["Favorites"] = favoritGroup.ToJson();
+            ApplicationData.Current.SignalDataChanged();
         }
     }
 }

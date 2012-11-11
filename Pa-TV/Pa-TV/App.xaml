@@ -22,7 +22,11 @@
                     <ControlTemplate>
                         <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#3C3C3C" Background="#262626">
                             <Grid>
+                                <Grid Background="{StaticResource AppBrush}" Opacity="0.5" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="&#xE0B5;" Margin="0,0,5,10" Foreground="White" FontFamily="Segoe UI Symbol" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource SubtitleTextStyle}"/>
+                                
                                 <Grid x:Name="HighlightContainer" Background="{StaticResource AppBrush}" Visibility="{Binding HighLight, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                
                                 <Grid Margin="12,0" Opacity="{Binding Ended, Converter={StaticResource EventEndedConverter}}">
                                     <TextBlock VerticalAlignment="Top" TextWrapping="NoWrap" Foreground="White" Text="{Binding Title}" Style="{StaticResource ItemTextStyle}"/>
                                     <TextBlock VerticalAlignment="Bottom" TextWrapping="NoWrap" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>

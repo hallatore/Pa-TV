@@ -45,7 +45,6 @@ namespace Pa_TV
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            var group = new ChannelGroup();
             var channels = new List<string>();
 
             foreach (var item in itemGridView.Items)
@@ -56,8 +55,7 @@ namespace Pa_TV
                 }
             }
 
-            group.ChannelIds = channels;
-            ApplicationData.Current.RoamingSettings.Values["Channels"] = group.ToJson();
+            App.SaveChannels(channels);
         }
 
         private async Task LoadChannels()

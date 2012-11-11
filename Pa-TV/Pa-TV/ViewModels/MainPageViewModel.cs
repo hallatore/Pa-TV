@@ -10,6 +10,7 @@ namespace Pa_TV.ViewModels
         public DateTime End { get; set; }
 
         public IEnumerable<string> Channels { get; set; }
+        public IEnumerable<string> Favorites { get; set; }
         public IEnumerable<Channel> ChannelList { get; set; }
 
         private DateTime start;

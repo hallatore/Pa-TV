@@ -13,6 +13,7 @@ using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,10 +36,56 @@ namespace Pa_TV
             SearchPane.GetForCurrentView().ShowOnKeyboardInput = true;
             SearchPane.GetForCurrentView().QuerySubmitted += MainPageQuerySubmitted;
 
+            ApplicationData.Current.DataChanged += Current_DataChanged;
+
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        async void Current_DataChanged(ApplicationData sender, object args)
+        {
+            if (viewModel != null)
+            {
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    var channels = App.GetChannelsOrDefault(sender);
+                    var changed = CheckIfChanged(channels);
+
+                    if (changed)
+                    {
+                        viewModel.Channels = channels;
+                        await LoadChannels();
+                    }
+                    else
+                    {
+                        UpdateFavorites();
+                    }
+                });
+            }
+        }
+
+        private bool CheckIfChanged(IEnumerable<string> channels)
+        {
+            var changed = viewModel.Channels.Count() != channels.Count();
+
+            if (!changed)
+            {
+                foreach (var channel in channels)
+                {
+                    changed = changed || viewModel.Channels.All(s => s != channel);
+                }
+            }
+
+            if (!changed)
+            {
+                foreach (var channel in viewModel.Channels)
+                {
+                    changed = changed || channels.All(s => s != channel);
+                }
+            }
+            return changed;
         }
 
         void Timer_Tick(object sender, object e)
@@ -57,7 +104,8 @@ namespace Pa_TV
                 viewModel = new MainPageViewModel
                 {
                     Start = DateTime.Today.AddHours(5),
-                    Channels = App.GetChannelsOrDefault()
+                    Channels = App.GetChannelsOrDefault(),
+                    Favorites = App.GetFavoritesOrDefault()
                 };
 
                 DataContext = viewModel;
@@ -80,7 +128,6 @@ namespace Pa_TV
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            viewModel = null;
         }
 
         private async Task LoadChannels()
@@ -114,6 +161,7 @@ namespace Pa_TV
             DrawTimeLines(current, viewModel.End, TimeWidth);
             DrawChannels(viewModel.ChannelList, start);
             DrawCurrentTimeLine(start, viewModel.End);
+            UpdateFavorites();
             Scroller.Opacity = 1;
             UpdateLayout();
             TimeHeaders.Width = ScrollerContainer.ActualWidth;
@@ -321,18 +369,47 @@ namespace Pa_TV
         {
             _activeEventItem = (Event) ((FrameworkElement) sender).DataContext;
 
+            string favoriteButton = "Favoritt";
+
+            if (viewModel.Favorites.Any(s => s == _activeEventItem.Title))
+                favoriteButton = "Fjern favoritt";
+
+
             DataTransferManager.GetForCurrentView().DataRequested += OnDataRequested;
             var dialog = new MessageDialog(string.Format("{0:HH:mm} - {1:HH:mm}\r\n\r\n{2}", _activeEventItem.Start, _activeEventItem.End, _activeEventItem.Description), _activeEventItem.Title);
+            dialog.Commands.Add(new UICommand(favoriteButton, command =>
+            {
+                DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
+                var favList = viewModel.Favorites.ToList();
+
+                if (!viewModel.Favorites.Any(s => s == _activeEventItem.Title))
+                    favList.Add(_activeEventItem.Title);
+                else
+                    favList.Remove(_activeEventItem.Title);
+
+                    viewModel.Favorites = favList;
+                    App.SaveFavorites(favList);
+            }));
             dialog.Commands.Add(new UICommand("Del", OnCLickShare));
             dialog.Commands.Add(new UICommand("Lukk", command =>
             {
                 DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
-
             }));
 
-            dialog.DefaultCommandIndex = 1;
+            dialog.DefaultCommandIndex = 2;
 
             await dialog.ShowAsync();
+        }
+
+        private void UpdateFavorites()
+        {
+            foreach (var channel in viewModel.ChannelList)
+            {
+                foreach (var eventItem in channel.Events)
+                {
+                    eventItem.Favorite = viewModel.Favorites.Any(s => s == eventItem.Title);
+                }
+            }
         }
 
         private void OnCLickShare(IUICommand command)
@@ -396,8 +473,9 @@ namespace Pa_TV
             Scroller.ScrollToVerticalOffset(ChannelsScroller.VerticalOffset);
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void ShowChannelsPage_Click(object sender, RoutedEventArgs e)
         {
+            bottomAppBar.IsOpen = false;
             Frame.Navigate(typeof(ChannelsPage));
         }
 

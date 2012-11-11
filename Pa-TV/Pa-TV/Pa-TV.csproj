@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ChannelGroup.cs" />
+    <Compile Include="Models\FavoriteGroup.cs" />
     <Compile Include="ViewModels\EventForDates.cs" />
     <Compile Include="Models\CoreData.cs" />
     <Compile Include="Models\Event.cs" />

@@ -37,6 +37,20 @@ namespace Pa_TV.Models
             }
         }
 
+        private bool favorite;
+        public bool Favorite
+        {
+            get { return favorite; }
+            set
+            {
+                if (value != favorite)
+                {
+                    favorite = value;
+                    NotifyPropertyChanged("Favorite");
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
