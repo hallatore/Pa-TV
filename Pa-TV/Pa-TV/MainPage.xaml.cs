@@ -93,6 +93,16 @@ namespace Pa_TV
             if (viewModel == null) return;
 
             DrawCurrentTimeLine(viewModel.Start, viewModel.End);
+            var now = DateTime.Now;
+
+            foreach (var channel in viewModel.ChannelList)
+            {
+                foreach (var eventItem in channel.Events)
+                {
+                    if (eventItem.End < now)
+                        eventItem.NotifyPropertyChanged("Ended");
+                }
+            }
         }
 
         protected async override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -235,9 +245,8 @@ namespace Pa_TV
                     DataContext = new { RowHeight = RowHeight, Channel = channel },
                     Style = (Style)Resources["ChannelButtonStyle"],
                 };
+
                 channelElement.Click += ChannelElementOnClick;
-
-
                 ChannelsStackPanel.Children.Add(channelElement);
             }
 
@@ -285,8 +294,7 @@ namespace Pa_TV
 
                         SearchHintContainer.Children.Add(new Grid
                         {
-                            Background =
-                                (Brush) Application.Current.Resources["AppBrush"],
+                            Background = (Brush) Application.Current.Resources["AppBrush"],
                             Margin = new Thickness(leftMargin, 0, 0, 0),
                             Width = width,
                             HorizontalAlignment = HorizontalAlignment.Left

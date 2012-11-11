@@ -20,7 +20,7 @@ namespace Pa_TV.Models
 
         public bool Ended
         {
-            get { return DateTime.Now >= End; }
+            get { return DateTime.Now > End; }
         }
 
         private bool highLight;
@@ -52,7 +52,7 @@ namespace Pa_TV.Models
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
+        public void NotifyPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler)
