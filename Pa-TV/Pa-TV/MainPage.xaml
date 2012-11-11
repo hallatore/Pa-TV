@@ -114,10 +114,10 @@
                     ViewChanged="Scroller_ViewChanged_1" 
                     x:Name="Scroller" 
                     HorizontalScrollMode="Auto"
-                    VerticalScrollBarVisibility="Hidden" 
+                    HorizontalScrollBarVisibility="Auto" 
+                    VerticalScrollBarVisibility="Auto" 
                     VerticalScrollMode="Auto" 
                     ZoomMode="Disabled" 
-                    HorizontalScrollBarVisibility="Visible" 
                     Background="#202020">
                     <Grid x:Name="ScrollerContainer" Margin="0,0,0,0"/>
                 </ScrollViewer>

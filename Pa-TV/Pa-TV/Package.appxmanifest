@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="7faf23aa-9f06-4f0f-90e8-fb13f24bd236" Publisher="CN=Tore" Version="1.0.0.9" />
+  <Identity Name="7faf23aa-9f06-4f0f-90e8-fb13f24bd236" Publisher="CN=Tore" Version="1.0.0.10" />
   <Properties>
     <DisplayName>På TV</DisplayName>
     <PublisherDisplayName>Tore Lervik</PublisherDisplayName>

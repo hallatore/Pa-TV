@@ -10,73 +10,71 @@
                 <ResourceDictionary Source="Common/StandardStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-        <Converters:Date x:Key="DateConverter"/>
-        <Converters:EventEnded x:Key="EventEndedConverter"/>
-        <Converters:BoolToVisibility x:Key="BoolToVisibilityConverter"/>
-        <Converters:FavoriteTitleBrush x:Key="FavoriteTitleBrushConverter"/>
+            <Converters:Date x:Key="DateConverter"/>
+            <Converters:EventEnded x:Key="EventEndedConverter"/>
+            <Converters:BoolToVisibility x:Key="BoolToVisibilityConverter"/>
+            <Converters:FavoriteTitleBrush x:Key="FavoriteTitleBrushConverter"/>
 
 
-        <Style x:Key="EventButtonStyle" TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#3C3C3C" Background="#262626">
-                            <Grid>
-                                <Border BorderBrush="{StaticResource AppBrush}" BorderThickness="0" Margin="-1,-1,0,0" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="&#xE0B5;" Margin="0,0,5,10" Foreground="White" FontFamily="Segoe UI Symbol" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource SubtitleTextStyle}"/>
+            <Style x:Key="EventButtonStyle" TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border x:Name="ContentContainer" BorderThickness="1" BorderBrush="#3C3C3C" Background="#262626">
+                                <Grid>
+                                    <Border BorderBrush="{StaticResource AppBrush}" BorderThickness="0,2,0,0" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="&#xE0B5;" FontSize="20" Margin="0,0,5,10" Foreground="{StaticResource AppBrush}" FontFamily="Segoe UI Symbol" Visibility="{Binding Favorite, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource SubtitleTextStyle}"/>
+
+                                    <Border x:Name="HighlightContainer" Background="{StaticResource AppBrush}" Visibility="{Binding HighLight, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 
-                                <Border x:Name="HighlightContainer" BorderBrush="{StaticResource AppBrush}" BorderThickness="3" Margin="-1,-1,0,0" Visibility="{Binding HighLight, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                
-                                <Grid Margin="12,0" Opacity="{Binding Ended, Converter={StaticResource EventEndedConverter}}">
-                                    <TextBlock VerticalAlignment="Top" TextWrapping="NoWrap" Foreground="{Binding Favorite, Converter={StaticResource FavoriteTitleBrushConverter}}" Text="{Binding Title}" Style="{StaticResource ItemTextStyle}"/>
-                                    <TextBlock VerticalAlignment="Bottom" TextWrapping="NoWrap" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>
+                                    <Grid Margin="12,0" Opacity="{Binding Ended, Converter={StaticResource EventEndedConverter}}">
+                                        <TextBlock VerticalAlignment="Top" TextWrapping="NoWrap" Foreground="White" Text="{Binding Title}" Style="{StaticResource ItemTextStyle}"/>
+                                        <TextBlock VerticalAlignment="Bottom" TextWrapping="NoWrap" Foreground="White" Opacity="0.7" Text="{Binding Start, Converter={StaticResource DateConverter}}" Margin="0,0,0,10" Style="{StaticResource SubtitleTextStyle}"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="ApplicationViewStates">
-                                    <VisualState x:Name="FullScreenLandscape"/>
-                                    <VisualState x:Name="Filled"/>
-                                    <VisualState x:Name="FullScreenPortrait"/>
-                                    <VisualState x:Name="Snapped"/>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#232323"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightContainer" Storyboard.TargetProperty="Opacity">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0.7"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightContainer" Storyboard.TargetProperty="Opacity">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0.7"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled"/>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused"/>
-                                    <VisualState x:Name="Unfocused" />
-                                    <VisualState x:Name="PointerFocused" />
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="ApplicationViewStates">
+                                        <VisualState x:Name="FullScreenLandscape"/>
+                                        <VisualState x:Name="Filled"/>
+                                        <VisualState x:Name="FullScreenPortrait"/>
+                                        <VisualState x:Name="Snapped"/>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#232323"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightContainer" Storyboard.TargetProperty="Opacity">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="0.7"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#202020"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HighlightContainer" Storyboard.TargetProperty="Opacity">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="0.7"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled"/>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused"/>
+                                        <VisualState x:Name="Unfocused" />
+                                        <VisualState x:Name="PointerFocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
-
-
     </Application.Resources>
 </Application>

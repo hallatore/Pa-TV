@@ -36,12 +36,19 @@ namespace Pa_TV
             SearchPane.GetForCurrentView().ShowOnKeyboardInput = true;
             SearchPane.GetForCurrentView().QuerySubmitted += MainPageQuerySubmitted;
 
+            ApplicationViewStates.CurrentStateChanged += ApplicationViewStates_CurrentStateChanged;
+
             ApplicationData.Current.DataChanged += Current_DataChanged;
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMinutes(1);
+            timer.Interval = TimeSpan.FromSeconds(20);
             timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        void ApplicationViewStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            CheckScrolling();
         }
 
         async void Current_DataChanged(ApplicationData sender, object args)
@@ -133,11 +140,8 @@ namespace Pa_TV
 
                 await LoadChannels();
             }
-        }
 
-        protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
+            CheckScrolling();
         }
 
         private async Task LoadChannels()
@@ -174,10 +178,19 @@ namespace Pa_TV
             UpdateFavorites();
             Scroller.Opacity = 1;
             UpdateLayout();
+            CheckScrolling();
             TimeHeaders.Width = ScrollerContainer.ActualWidth;
             ScrollToCurrentTime(start, viewModel.End);
 
             ProgressRingControl.IsActive = false;
+        }
+
+        private void CheckScrolling()
+        {
+            if (Scroller.ComputedVerticalScrollBarVisibility == Visibility.Collapsed)
+                Scroller.VerticalScrollMode = ScrollMode.Disabled;
+            else
+                Scroller.VerticalScrollMode = ScrollMode.Auto;
         }
 
         private Grid _currentTimeLine;
