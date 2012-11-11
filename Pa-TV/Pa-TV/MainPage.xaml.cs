@@ -275,7 +275,7 @@ namespace Pa_TV
                 {
                     if ((Regex.IsMatch(eventItem.Title, query, RegexOptions.IgnoreCase) || 
                         Regex.IsMatch(eventItem.Description, query, RegexOptions.IgnoreCase)) && 
-                        eventItem.End > start)
+                        eventItem.Start > start)
                     {
                         if ((firstItem == null || firstItem.Start > eventItem.Start) && eventItem.End >= DateTime.Now)
                             firstItem = eventItem;
@@ -485,21 +485,6 @@ namespace Pa_TV
         {
             bottomAppBar.IsOpen = false;
             Frame.Navigate(typeof(ChannelsPage));
-        }
-
-        private void Scroller_PointerEntered_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
-            {
-                SearchHintContainer.Height = 17;
-                SearchHintContainer.Margin = new Thickness(0);
-            }
-            else
-            {
-                SearchHintContainer.Height = 2;
-                SearchHintContainer.Margin = new Thickness(7);
-            }
-
         }
 
         private void ShowHideDaySelection_Click(object sender, RoutedEventArgs e)

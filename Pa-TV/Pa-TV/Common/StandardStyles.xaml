@@ -27,6 +27,7 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <SolidColorBrush x:Key="AppBrush" Color="#EF9608"/>
+    <SolidColorBrush x:Key="AppBrushHighlight" Color="#ff9d00"/>
 
     <Style x:Key="TransparentButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>

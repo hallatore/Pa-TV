@@ -112,7 +112,6 @@
                     Margin="120,0,0,0"
                     Padding="0,0,0,0" 
                     ViewChanged="Scroller_ViewChanged_1" 
-                    PointerEntered="Scroller_PointerEntered_1"
                     x:Name="Scroller" 
                     HorizontalScrollMode="Auto"
                     VerticalScrollBarVisibility="Hidden" 
@@ -127,7 +126,7 @@
                     <StackPanel x:Name="ChannelsStackPanel" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Width="120"/>
                 </ScrollViewer>
 
-                <Grid x:Name="SearchHintContainer" IsHitTestVisible="False" Margin="130,0,10,0" VerticalAlignment="Bottom" Height="17" Opacity="0.7"/>
+                <Grid x:Name="SearchHintContainer" IsHitTestVisible="False" Margin="130,6,10,6" VerticalAlignment="Bottom" Height="4" Opacity="1"/>
             </Grid>
         </Grid>
 
