@@ -81,7 +81,10 @@
             </Button>
 
             <Button Grid.Column="2" x:Name="DayDateButton" Style="{StaticResource TransparentButtonStyle}" Margin="0,15,0,0" Click="ShowHideDaySelection_Click">
-                <TextBlock x:Name="DayDateText" Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="DayDateText" Text="{Binding Start, Converter={StaticResource DayDateConverter}}" Style="{StaticResource PageSubheaderTextStyle}" Margin="10"/>
+                    <TextBlock Text="&#xE099;" Opacity="0.5" Style="{StaticResource PageSubheaderTextStyle}" FontFamily="Segoe UI Symbol" Margin="10"/>
+                </StackPanel>
             </Button>
 
             <Button HorizontalAlignment="Right" Click="ClearSearch_Click" Margin="0,15,0,0" Grid.Column="3" VerticalAlignment="Center" Style="{StaticResource TransparentButtonStyle}">
